@@ -1,0 +1,22 @@
+<head>
+        <script src="node_modules/chart.js/src/chart.js"></script>
+        <script src="js/leaflet/leaflet.js"></script>  
+        <script src="js/main.js"></script>
+</head>
+<div id="container">
+    <div class="sidebar" id="sDataDetails">
+        <div class="sidebarcontents">
+                <h1 class="header1">Sensor Graphs</h1>
+                <app-chart></app-chart>
+        </div>
+
+    </div>
+    <div class="map" id="map1"
+    leaflet
+    (leafletMapReady)="onMapReady($event)"
+    [leafletOptions]="options"
+    [leafletLayers]="markers"
+    [leafletLayersControl]="layersControl" markers="markers">
+    </div>
+
+</div>
