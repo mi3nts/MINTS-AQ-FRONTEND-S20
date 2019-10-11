@@ -1,3 +1,29 @@
-<p>
-  chart works!!!!
-</p>
+<head>
+  <script src="/assets/js/Chart.min.js"></script>
+</head>
+<h2>PM2.5 Graph</h2>
+<div style="display:block">
+  <canvas baseChart width="400px" height="200px"
+  [datasets]="PM2_5chartData"
+  [labels]="chartLabels"
+  [options]="lineChartOptions"
+  [colors]="lineChartColors"
+  [legend]="lineChartLegend"
+  [chartType]="lineChartType"
+  [plugins]="lineChartPlugins"
+  (chartHover)="chartHovered($event)"
+  (chartClick)="chartClicked($event)"></canvas>
+<br>
+<h2>PM1 Graph</h2>
+<div style="display:block">
+  <canvas baseChart width="400px" height="200px"
+  [datasets]="PM1chartData"
+  [labels]="chartLabels"
+  [options]="lineChartOptions"
+  [colors]="lineChartColors"
+  [legend]="lineChartLegend"
+  [chartType]="lineChartType"
+  [plugins]="lineChartPlugins"
+  (chartHover)="chartHovered($event)"
+  (chartClick)="chartClicked($event)"></canvas>
+</div>
