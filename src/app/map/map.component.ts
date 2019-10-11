@@ -67,17 +67,10 @@ export class MapComponent implements OnInit{
   addMarker(sData){
       // for(let i = 0; i < sData["entries"].length; i++)
       // {
-        // let newMarker = circle([parseFloat(sData["entries"][0]["Latitude"]), parseFloat(sData["entries"][0]["Longitude"])],{
-        //   icon: icon({
-        //     iconSize:[25, 41],
-        //     iconAnchor:[13,41],
-        //     iconUrl: 'leaflet/marker-icon.png'
-        //   })
-        // } );
         let newMarker = circleMarker([parseFloat(sData["entries"][0]["Latitude"]), parseFloat(sData["entries"][0]["Longitude"])], {
           radius: 10,
-          color: "#ff0000",
-          fillColor: "#ff8080",
+          color: "#35b000",
+          fillColor: "#a1ff78",
           fillOpacity: 1
         });
         this.markers.push(newMarker);

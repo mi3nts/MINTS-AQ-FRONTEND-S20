@@ -20,17 +20,17 @@ export class ChartComponent implements OnInit {
         {
           id: 'y-axis-0',
           position: 'left',
-        },
-        {
-          id: 'y-axis-1',
-          position: 'right',
-          gridLines: {
-            color: 'rgba(255,0,0,0.3)',
-          },
-          ticks: {
-            fontColor: 'red',
-          }
         }
+        // ,{
+        //   id: 'y-axis-1',
+        //   position: 'right',
+        //   gridLines: {
+        //     color: 'rgba(255,0,0,0.3)',
+        //   },
+        //   ticks: {
+        //     fontColor: 'red',
+        //   }
+        // }
       ]
     },
     annotation: {
@@ -116,8 +116,6 @@ export class ChartComponent implements OnInit {
   "12:00:00", "15:00:00", 
   "18:00:00", "23:59:59"];
 
-
-
   ngOnInit() {
     let url3 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06305a12/2019/08/30/MINTS_001e06305a12_calibrated_UTC_2019_08_30.csv";
     this.HistoricalSensorData = JSON.parse(this.sensorDataService.csvJSON(this.sensorDataService.getHistoricalSensorData(url3)));
@@ -141,19 +139,5 @@ export class ChartComponent implements OnInit {
     this.PM2_5chartData[0].data = PM2_5data;
     this.PM1chartData[0].data = PM1data;
   }
-  
-  // createChart(){
-  //   var chart = new Chart('chart', {
-  //     type: 'horizontalBar',
-  //     data: {
-  //       labels: ['A', 'B', 'C'],
-  //       datasets: [
-  //         {
-  //           data: [10, 20, 30]
-  //         }
-  //       ]
-  //     }
-  //   });
-  // }
 
 }
