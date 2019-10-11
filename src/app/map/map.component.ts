@@ -37,11 +37,11 @@ export class MapComponent implements OnInit{
   onMapReady(map:Map){
     map.addControl( L.control.zoom({position:'bottomright'}));
     let url1 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06305a12/latestData.json";
-    let url2 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06323a06/latestData.json"
-    
+    let url2 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06323a06/latestData.json";
     this.sensors.push(JSON.parse(this.sensorDataService.getSensorData(url1)));
     this.sensors.push(JSON.parse(this.sensorDataService.getSensorData(url2)));
     console.log(this.sensors);
+
     for(let i = 0; i < this.sensors.length; i++)
     {
         this.addMarker(this.sensors[i]);
@@ -67,17 +67,10 @@ export class MapComponent implements OnInit{
   addMarker(sData){
       // for(let i = 0; i < sData["entries"].length; i++)
       // {
-        // let newMarker = circle([parseFloat(sData["entries"][0]["Latitude"]), parseFloat(sData["entries"][0]["Longitude"])],{
-        //   icon: icon({
-        //     iconSize:[25, 41],
-        //     iconAnchor:[13,41],
-        //     iconUrl: 'leaflet/marker-icon.png'
-        //   })
-        // } );
         let newMarker = circleMarker([parseFloat(sData["entries"][0]["Latitude"]), parseFloat(sData["entries"][0]["Longitude"])], {
           radius: 10,
-          color: "#ff0000",
-          fillColor: "#ff8080",
+          color: "#35b000",
+          fillColor: "#a1ff78",
           fillOpacity: 1
         });
         this.markers.push(newMarker);
