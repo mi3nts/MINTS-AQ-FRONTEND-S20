@@ -1,12 +1,12 @@
 <head>
   <script src="/assets/js/Chart.min.js"></script>
 </head>
-<h2>PM2.5 Graph</h2>
+<h2>PM Graph</h2>
 <div style="display:block">
   <canvas baseChart width="400px" height="200px"
-  [datasets]="PM2_5chartData"
+  [datasets]="PMchartData"
   [labels]="chartLabels"
-  [options]="lineChartOptions"
+  [options]="PMlineChartOptions"
   [colors]="lineChartColors"
   [legend]="lineChartLegend"
   [chartType]="lineChartType"
@@ -14,16 +14,29 @@
   (chartHover)="chartHovered($event)"
   (chartClick)="chartClicked($event)"></canvas>
 <br>
-<h2>PM1 Graph</h2>
+<h2>Temperature Graph</h2>
 <div style="display:block">
   <canvas baseChart width="400px" height="200px"
-  [datasets]="PM1chartData"
+  [datasets]="TemperatureData"
   [labels]="chartLabels"
-  [options]="lineChartOptions"
+  [options]="TemperaturelineChartOptions"
   [colors]="lineChartColors"
   [legend]="lineChartLegend"
   [chartType]="lineChartType"
   [plugins]="lineChartPlugins"
   (chartHover)="chartHovered($event)"
   (chartClick)="chartClicked($event)"></canvas>
-</div>
+</div> 
+<h2>Humidity Graph</h2>
+<div style="display:block">
+  <canvas baseChart width="400px" height="200px"
+  [datasets]="HumidityData"
+  [labels]="chartLabels"
+  [options]="HumiditylineChartOptions"
+  [colors]="lineChartColors"
+  [legend]="lineChartLegend"
+  [chartType]="lineChartType"
+  [plugins]="lineChartPlugins"
+  (chartHover)="chartHovered($event)"
+  (chartClick)="chartClicked($event)"></canvas>
+</div> 
