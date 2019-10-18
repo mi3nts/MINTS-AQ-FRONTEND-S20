@@ -1,0 +1,37 @@
+#container{
+    position:relative;
+    height:100%;
+    width:100%;
+    padding:0;
+}
+.sidebar{
+    display: none;
+    position: absolute;
+    height: 95%;
+    width: 33%;
+    background-color: white;
+    z-index: 2;
+    border-radius: 5px;
+    left: 20px;
+    top: 25px;
+    box-shadow: 10px 10px grey;
+    overflow-y:auto;
+}
+.sidebarcontents{
+    text-align:center;
+    padding:10px;
+}
+
+.SideBarButton {
+    background-color: lightgrey;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 4px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+  }

@@ -4,13 +4,7 @@
         <script src="js/main.js"></script>
 </head>
 <div id="container">
-    <div class="sidebar" id="sDataDetails">
-        <div class="sidebarcontents">
-                <h1 class="header1">Sensor Graphs</h1>
-                <app-chart></app-chart>
-        </div>
-
-    </div>
+    <app-side-bar></app-side-bar>
     <div class="map" id="map1"
     leaflet
     (leafletMapReady)="onMapReady($event)"

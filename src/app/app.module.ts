@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { ChartComponent } from './chart/chart.component';
 import { ChartsModule } from 'ng2-charts';
+import { SideBarComponent } from './side-bar/side-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
-    ChartComponent
+    ChartComponent,
+    SideBarComponent
   ],
   imports: [
     BrowserModule,
