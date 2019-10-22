@@ -1,16 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { latLng,  tileLayer, marker, icon, polyline, Map, Layer, circle, circleMarker, LeafletEventHandlerFn, Control} from 'leaflet';
-import * as $ from 'jquery';
-import { getOrCreateTemplateRef } from '@angular/core/src/render3/di';
 import { SensorDataService } from '../sensor-data.service';
-import {ChartComponent} from '../chart/chart.component';
-import GEOTIFF from 'geotiff';
-import * as d3 from "d3";
-import * as chroma from 'chroma-js';
-import VelocityLayer from 'leaflet-velocity';
 import 'leaflet-velocity-ts';
 declare var L: any;
-import WindJSLeaflet from 'wind-js-leaflet';
 declare var require: any;
 declare function WindMap(map):any;
 
@@ -51,8 +43,6 @@ export class MapComponent implements OnInit{
   });
 
   wind_overlay: any;
-  
-
 
   //function that runs when the map is loaded and ready to receive layers
   onMapReady(map:Map){
