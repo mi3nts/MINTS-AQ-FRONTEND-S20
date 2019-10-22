@@ -1,11 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { latLng,  tileLayer, marker, icon, polyline, Map, Layer, circle, circleMarker, LeafletEventHandlerFn, Control} from 'leaflet';
-import { velocityLayer } from 'leaflet-velocity'
 import * as $ from 'jquery';
 import { getOrCreateTemplateRef } from '@angular/core/src/render3/di';
 import { SensorDataService } from '../sensor-data.service';
-import * as L from 'leaflet';
 import {ChartComponent} from '../chart/chart.component';
+import GEOTIFF from 'geotiff';
+import * as d3 from "d3";
+import * as chroma from 'chroma-js';
+import VelocityLayer from 'leaflet-velocity';
+import 'leaflet-velocity-ts';
+declare var L: any;
+import WindJSLeaflet from 'wind-js-leaflet';
+declare var require: any;
+declare function WindMap(map):any;
 
 @Component({
   selector: 'app-map',
@@ -16,6 +23,9 @@ import {ChartComponent} from '../chart/chart.component';
 export class MapComponent implements OnInit{
   constructor(private sensorDataService: SensorDataService){
   }
+
+  wind_json = require('./wind-gbr.json');
+
   //holds current sensor data
   sensors:JSON[] =[];
   //Layer array for circle markers
@@ -39,7 +49,11 @@ export class MapComponent implements OnInit{
     detectRetina: true,
 	  attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
   });
+
+  wind_overlay: any;
   
+
+
   //function that runs when the map is loaded and ready to receive layers
   onMapReady(map:Map){
     //changes zoom control position
@@ -57,6 +71,24 @@ export class MapComponent implements OnInit{
     {
         this.addMarker(this.sensors[i]);
     }
+
+    this.wind_overlay =  L.velocityLayer({
+      displayValues: true,
+      displayOptions: {
+        velocityType: 'GBR Wind',
+        position: 'topleft',//REQUIRED !
+        emptyString: 'No velocity data', //REQUIRED !
+        angleConvention: 'bearingCW',
+        displayPosition: 'topleft',
+        displayEmptyString: 'No velocity data',
+        speedUnit: 'm/s'
+      },
+      data: this.wind_json,
+      maxVelocity: 10,
+    });
+
+    this.wind_overlay.addTo(map);
+    map.addLayer(this.wind_overlay);
   }
 
   //leaflet map controls for map layers
@@ -64,8 +96,11 @@ export class MapComponent implements OnInit{
     baseLayers: {
       'Street Maps': this.streetMaps,
       'Wikimedia Maps': this.wMaps,
-      'ESRI Maps': this.Esri_WorldStreetMap
+      'ESRI Maps': this.Esri_WorldStreetMap,
     },
+    overlays:{
+      'Wind Overlay': this.wind_overlay
+    }
 
   };
 
@@ -76,6 +111,7 @@ export class MapComponent implements OnInit{
     center: latLng([ 	32.897480,  -97.040443 ]),
     zoomControl:false
   };
+
   //This funciton adds circle markers that represents the sensors
   addMarker(sData){
       // for(let i = 0; i < sData["entries"].length; i++)
@@ -135,21 +171,6 @@ export class MapComponent implements OnInit{
 
   //component initialize function
   ngOnInit():void{
-    $.getJSON("wind-gbr.json", function(data) {
-      var velocity_layer = velocityLayer({
-        displayValues: true,
-        displayOptions: {
-          velocityType: "GBR Wind",
-          displayPosition: "bottomleft",
-          displayEmptyString: "No wind data"
-        },
-        data: data,
-        maxVelocity: 10
-      });
-      //TODO: ADD OVERLAY. Doen't work. Try [leafletLayersControlOptions]
-      this.layersControl.addOverlay(velocity_layer, "Wind Velocity Layer")
-    });
-
   }
 
   ngAfterViewInit():void{
