@@ -62,23 +62,7 @@ export class MapComponent implements OnInit{
         this.addMarker(this.sensors[i]);
     }
 
-    this.wind_overlay =  L.velocityLayer({
-      displayValues: true,
-      displayOptions: {
-        velocityType: 'GBR Wind',
-        position: 'topleft',//REQUIRED !
-        emptyString: 'No velocity data', //REQUIRED !
-        angleConvention: 'bearingCW',
-        displayPosition: 'topleft',
-        displayEmptyString: 'No velocity data',
-        speedUnit: 'm/s'
-      },
-      data: this.wind_json,
-      maxVelocity: 10,
-    });
-
-    this.wind_overlay.addTo(map);
-    map.addLayer(this.wind_overlay);
+    this.AddWindOverlay(map);
   }
 
   //leaflet map controls for map layers
@@ -101,6 +85,28 @@ export class MapComponent implements OnInit{
     center: latLng([ 	32.897480,  -97.040443 ]),
     zoomControl:false
   };
+
+  //adds wind overlay to leaflet map
+  AddWindOverlay(map:Map){
+    this.wind_overlay =  L.velocityLayer({
+      displayValues: true,
+      displayOptions: {
+        velocityType: 'GBR Wind',
+        position: 'topleft',//REQUIRED !
+        emptyString: 'No velocity data', //REQUIRED !
+        angleConvention: 'bearingCW',
+        displayPosition: 'topleft',
+        displayEmptyString: 'No velocity data',
+        speedUnit: 'm/s'
+      },
+      data: this.wind_json,
+      maxVelocity: 10,
+    });
+
+    this.wind_overlay.addTo(map);
+    //THIS DOESNT WORK
+    // map.addLayer(this.wind_overlay);
+  }
 
   //This funciton adds circle markers that represents the sensors
   addMarker(sData){
