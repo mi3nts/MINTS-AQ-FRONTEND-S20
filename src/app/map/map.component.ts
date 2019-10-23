@@ -118,13 +118,13 @@ export class MapComponent implements OnInit{
         
         //String that gives Real Time information about a Sensor. This is used in the popup modal for the marker
         let PopupString = "<div style='font-size:14px'><div style='text-align:center; font-weight:bold'>" + "Current Sensor Data </div><br>" + 
-        "<li>PM1: " + sData["entries"][0]["PM1"] + "</li><br>" +
-        "<li>PM2_5: " + sData["entries"][0]["PM2_5"] + "</li><br>" +
-        "<li>PM4: " + sData["entries"][0]["PM4"] + "</li><br>" +
-        "<li>PM10: " + sData["entries"][0]["PM10"] + "</li><br>" +
-        "<li>Temperature: " + sData["entries"][0]["Temperature"] + "</li><br>" +
-        "<li>Humidity: " + sData["entries"][0]["Humidity"] + "</li><br>" +
-        "<li>DewPoint: " + sData["entries"][0]["DewPoint"] + "</li></div><br>" +
+        "<li>PM1: " + parseFloat(sData["entries"][0]["PM1"]).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
+        "<li>PM2_5: " + parseFloat(sData["entries"][0]["PM2_5"]).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
+        "<li>PM4: " + parseFloat(sData["entries"][0]["PM4"]).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
+        "<li>PM10: " + parseFloat(sData["entries"][0]["PM10"]).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
+        "<li>Temperature: " + parseFloat(sData["entries"][0]["Temperature"]).toFixed(2) + " Celcius</li><br>" +
+        "<li>Humidity: " + parseFloat(sData["entries"][0]["Humidity"]).toFixed(2) + "%</li><br>" +
+        "<li>DewPoint: " + parseFloat(sData["entries"][0]["DewPoint"]).toFixed(2) + "%</li></div><br>" +
         "<div style='text-align:right; font-size: 11px'>Last Updated: " + sData["entries"][0]["dateTime"] + "</div>" ;
 
         let newMarker = circleMarker([parseFloat(sData["entries"][0]["Latitude"]), parseFloat(sData["entries"][0]["Longitude"])], {
