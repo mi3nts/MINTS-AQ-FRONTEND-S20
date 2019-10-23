@@ -16,7 +16,12 @@
     top: 25px;
     box-shadow: 10px 10px grey;
     overflow-y:auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
 }
+
+.sidebar::-webkit-scrollbar { width: 0 !important }
+
 .sidebarcontents{
     text-align:center;
     padding:10px;
@@ -36,4 +41,4 @@
     height: 25px;
     position: absolute;
     right: 0px;
-  }
+}
