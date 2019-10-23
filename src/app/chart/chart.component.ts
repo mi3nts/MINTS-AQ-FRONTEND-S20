@@ -88,7 +88,7 @@ export class ChartComponent implements OnInit {
         {
           scaleLabel:{
               display: true,
-              labelString:'Temperature in Celcius'
+              labelString:'Celcius'
           },
           id: 'y-axis-0',
           position: 'left',
