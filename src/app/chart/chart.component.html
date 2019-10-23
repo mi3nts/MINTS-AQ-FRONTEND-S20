@@ -1,11 +1,11 @@
 <head>
   <script src="/assets/js/Chart.min.js"></script>
 </head>
-<h2>PM Graph</h2>
+<h2>Particle Matter Pollution Graph</h2>
 <div style="display:block">
   <canvas baseChart width="400px" height="200px"
   [datasets]="PMchartData"
-  [labels]="chartLabels"
+  [labels]="chartLabelsHourly"
   [options]="PMlineChartOptions"
   [colors]="lineChartColors"
   [legend]="lineChartLegend"
@@ -18,7 +18,7 @@
 <div style="display:block">
   <canvas baseChart width="400px" height="200px"
   [datasets]="TemperatureData"
-  [labels]="chartLabels"
+  [labels]="chartLabelsHourly"
   [options]="TemperaturelineChartOptions"
   [colors]="lineChartColors"
   [legend]="lineChartLegend"
@@ -31,7 +31,7 @@
 <div style="display:block">
   <canvas baseChart width="400px" height="200px"
   [datasets]="HumidityData"
-  [labels]="chartLabels"
+  [labels]="chartLabelsHourly"
   [options]="HumiditylineChartOptions"
   [colors]="lineChartColors"
   [legend]="lineChartLegend"

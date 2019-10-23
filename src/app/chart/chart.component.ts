@@ -17,9 +17,30 @@ export class ChartComponent implements OnInit {
     responsive: true,
     scales: {
       // We use this empty structure as a placeholder for dynamic theming.
-      xAxes: [{}],
+      xAxes: [{
+        scaleLabel:{
+          display: true,
+          labelString:'Hours per Day'
+        },
+        //NEEDS TO FIXED
+        // type: 'time',
+        // ticks:{
+        //   stepSize: 1,
+        //   unitStepSize: 5,
+        //   displayFormats:{
+        //     hour: 'h:mm a',
+        //     minute: 'h:mm a',
+        //     autoskip: true,
+        //     autoSkipPadding: 30
+        //   }
+        // },
+      }],
       yAxes: [
         {
+          scaleLabel:{
+            display: true,
+            labelString:'Micrograms Per Cubic Meter'
+          },
           id: 'y-axis-0',
           position: 'left',
           ticks:{min:0, max:14}
@@ -43,6 +64,13 @@ export class ChartComponent implements OnInit {
         },
       ],
     },
+    legend:{
+      display: true,
+      labels:{
+        usePointStyle: true,
+        fontSize:14
+      }
+    }
   };
 
   //CHART OPTIONS FOR TEMPERATURE
@@ -50,9 +78,18 @@ export class ChartComponent implements OnInit {
     responsive: true,
     scales: {
       // We use this empty structure as a placeholder for dynamic theming.
-      xAxes: [{}],
+      xAxes: [{
+        scaleLabel:{
+          display: true,
+          labelString:'Hours per Day'
+        },
+      }],
       yAxes: [
         {
+          scaleLabel:{
+              display: true,
+              labelString:'Temperature in Celcius'
+          },
           id: 'y-axis-0',
           position: 'left',
           ticks:{min:0, max:60}
@@ -76,6 +113,13 @@ export class ChartComponent implements OnInit {
         },
       ],
     },
+    legend:{
+      display: true,
+      labels:{
+        usePointStyle: true,
+        fontSize:14
+      }
+    }
   };
 
   //CHART OPTIONS FOR HUMIDITY
@@ -83,9 +127,18 @@ export class ChartComponent implements OnInit {
     responsive: true,
     scales: {
       // We use this empty structure as a placeholder for dynamic theming.
-      xAxes: [{}],
+      xAxes: [{
+        scaleLabel:{
+          display: true,
+          labelString:'Timescale In Hours'
+        },
+      }],
       yAxes: [
         {
+          scaleLabel:{
+            display: true,
+            labelString:'Percent'
+          },
           id: 'y-axis-0',
           position: 'left',
           ticks:{min:0, max:20}
@@ -109,12 +162,19 @@ export class ChartComponent implements OnInit {
         },
       ],
     },
+    legend:{
+      display: true,
+      labels:{
+        usePointStyle: true,
+        fontSize:14
+      }
+    }
   };
 
   //LINE GRAPH COLORS
   public lineChartColors: Color[] = [
     { // green
-      backgroundColor: 'rgba(0,0,0,0)',
+      backgroundColor: 'green',
       borderColor: 'green',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
@@ -122,7 +182,7 @@ export class ChartComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
     { // blue
-      backgroundColor: 'rgba(0,0,0,0)',
+      backgroundColor: 'blue',
       borderColor: 'blue',
       pointBackgroundColor: 'rgba(77,83,96,1)',
       pointBorderColor: '#fff',
@@ -130,7 +190,7 @@ export class ChartComponent implements OnInit {
       pointHoverBorderColor: 'rgba(77,83,96,1)'
     },
     { // red
-      backgroundColor: 'rgba(0,0,0,0)',
+      backgroundColor: 'red',
       borderColor: 'red',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
@@ -138,7 +198,7 @@ export class ChartComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
     { // orange
-      backgroundColor: 'rgba(0,0,0,0)',
+      backgroundColor: 'orange',
       borderColor: 'orange',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
@@ -150,7 +210,10 @@ export class ChartComponent implements OnInit {
     //LINE CHART CONFIG 
     LineChartConfig = {
       legend: {
-        display: false
+        display: true,
+        labels:{
+          usePointStyle: true,
+        }
       },
       responsive: true,
       maintainAspectRatio: false,
@@ -169,37 +232,60 @@ export class ChartComponent implements OnInit {
     };
 
   //CHART CONFIG FOR LABELS
-  chartLabels =
-  ["00:00:00", " 03:00:00", 
-  "06:00:00", "09:00:00", 
-  "12:00:00", "15:00:00", 
-  "18:00:00", "23:59:59"];
+  chartLabelsTriHourly =[
+    "00:00:00", " 03:00:00", 
+    "06:00:00", "09:00:00", 
+    "12:00:00", "15:00:00", 
+    "18:00:00", "23:59:59"
+  ];
 
+  chartLabelsHourly =[
+    "00:00:00", "01:00:00", "02:00:00", "03:00:00", 
+    "04:00:00", "05:00:00", "06:00:00", "07:00:00",
+    "08:00:00", "09:00:00", "10:00:00", "11:00:00", 
+    "12:00:00", "13:00:00", "14:00:00", "15:00:00",
+    "16:00:00", "17:00:00", "18:00:00", "19:00:00", 
+    "20:00:00", "21:00:00", "22:00:00", "23:59:59"
+  ];
+
+  chartHovered($event){
+    console.log("Chart Hovered!");
+  }
+
+  chartClicked($event){
+    console.log("Chart Clicked!");
+  }
 
   //CHART JS OPTIONS
-  public lineChartLegend = true;
+  public lineChartLegend = {
+      display: true,
+      labels:{
+        usePointStyle: true,
+        fillStyle: 'fill'
+      }
+  };
+
   public lineChartType = 'line';
 
   //HOLDS SENSOR DATA FROM SERVER
   HistoricalSensorData: any = [];
 
-
   //HOLDS PM DATA
   PMchartData = [
-    { data: [], label: '' },
-    { data: [], label: '' },
-    { data: [], label: '' },
-    { data: [], label: '' }
+    { data: [], label: '', fill:false },
+    { data: [], label: '', fill:false },
+    { data: [], label: '', fill:false },
+    { data: [], label: '', fill:false }
   ];
 
   //HOLDS TEMPERATURE DATA
   TemperatureData = [
-    { data: [], label: '' }
+    { data: [], label: '', fill:false  }
   ];
 
   //HOLDS HUMIDITY DATA
   HumidityData = [
-    { data: [], label: '' }
+    { data: [], label: '', fill:false }
   ];
 
   ngOnInit() {
@@ -252,5 +338,4 @@ export class ChartComponent implements OnInit {
     this.HumidityData[0].data = HumidityData;
     this.HumidityData[0].label = "Humidity";
   }
-
 }

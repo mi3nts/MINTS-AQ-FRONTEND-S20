@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { latLng,  tileLayer, marker, icon, polyline, Map, Layer, circle, circleMarker, LeafletEventHandlerFn, Control} from 'leaflet';
+import { latLng,  tileLayer, marker, icon, polyline, Map, Layer, circle, circleMarker, LeafletEventHandlerFn, Control, LayerGroup} from 'leaflet';
 import { SensorDataService } from '../sensor-data.service';
 import 'leaflet-velocity-ts';
 declare var L: any;
 declare var require: any;
-declare function WindMap(map):any;
 
 @Component({
   selector: 'app-map',
@@ -32,7 +31,7 @@ export class MapComponent implements OnInit{
     detectRetina: true,
     attribution: '&amp;copy; &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors'
   });
-  wMaps = tileLayer('http://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
+  wikiMaps = tileLayer('http://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
     detectRetina: true,
     attribution: '&amp;copy; &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors'
   });
@@ -42,10 +41,30 @@ export class MapComponent implements OnInit{
 	  attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
   });
 
+  DarkMap = tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
+    detectRetina: true,
+	  attribution: 'CartoDB & OSM'
+  });
+
+  
   wind_overlay: any;
+  layerGrp: LayerGroup;
 
   //function that runs when the map is loaded and ready to receive layers
   onMapReady(map:Map){
+    this.AddWindOverlay(map);
+    this.layersControl = {
+      baseLayers: {
+        'Street Maps': this.streetMaps,
+        'Wikimedia Maps': this.wikiMaps,
+        'ESRI Maps': this.Esri_WorldStreetMap,
+        'Dark Mode': this.DarkMap
+      },
+      overlays:{
+          "Wind Overlay": this.wind_overlay
+      }
+    };
+
     //changes zoom control position
     map.addControl( L.control.zoom({position:'bottomright'}));
     //disables double click zoom
@@ -61,22 +80,10 @@ export class MapComponent implements OnInit{
     {
         this.addMarker(this.sensors[i]);
     }
-
-    this.AddWindOverlay(map);
   }
 
   //leaflet map controls for map layers
-  layersControl = {
-    baseLayers: {
-      'Street Maps': this.streetMaps,
-      'Wikimedia Maps': this.wMaps,
-      'ESRI Maps': this.Esri_WorldStreetMap,
-    },
-    overlays:{
-      'Wind Overlay': this.wind_overlay
-    }
-
-  };
+  layersControl;
 
   //leaflet options
   options = {
@@ -102,10 +109,6 @@ export class MapComponent implements OnInit{
       data: this.wind_json,
       maxVelocity: 10,
     });
-
-    this.wind_overlay.addTo(map);
-    //THIS DOESNT WORK
-    // map.addLayer(this.wind_overlay);
   }
 
   //This funciton adds circle markers that represents the sensors
@@ -167,6 +170,7 @@ export class MapComponent implements OnInit{
 
   //component initialize function
   ngOnInit():void{
+  
   }
 
   ngAfterViewInit():void{

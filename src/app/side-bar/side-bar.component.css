@@ -34,4 +34,6 @@
     border-radius: 50%;
     width: 25px;
     height: 25px;
+    position: absolute;
+    right: 0px;
   }
