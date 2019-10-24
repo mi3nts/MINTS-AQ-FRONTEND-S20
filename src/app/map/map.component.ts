@@ -41,10 +41,15 @@ export class MapComponent implements OnInit{
 	  attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
   });
 
-  DarkMap = tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
-    detectRetina: true,
-	  attribution: 'CartoDB & OSM'
-  });
+  DarkMap = L.tileLayer(
+    "http://{s}.sm.mapstack.stamen.com/" +
+    "(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/" +
+    "{z}/{x}/{y}.png",
+    {
+        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, ' +
+        'NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+    }
+  );
 
   
   wind_overlay: any;
