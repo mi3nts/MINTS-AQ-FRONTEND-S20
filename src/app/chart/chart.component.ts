@@ -248,6 +248,36 @@ export class ChartComponent implements OnInit {
     "20:00:00", "21:00:00", "22:00:00", "23:59:59"
   ];
 
+  chartLabelsHour =[ "00:00:00",
+    "00:01:00", "00:02:00", "00:03:00", "00:04:00", "00:05:00", 
+    "00:06:00", "00:07:00", "00:08:00","00:09:00", "00:10:00", 
+    "00:11:00", "00:12:00", "00:13:00", "00:14:00", "00:15:00", 
+    "00:16:00", "00:17:00", "00:18:00","00:19:00", "00:20:00", 
+    "00:21:00", "00:22:00", "00:23:00", "00:24:00", "00:25:00", 
+    "00:26:00", "00:27:00", "00:28:00","00:29:00", "00:30:00", 
+    "00:31:00", "00:32:00", "00:33:00", "00:34:00", "00:35:00", 
+    "00:36:00", "00:37:00", "00:38:00","00:39:00", "00:40:00", 
+    "00:41:00", "00:42:00", "00:43:00", "00:44:00", "00:45:00", 
+    "00:46:00", "00:47:00", "00:48:00","00:49:00", "00:50:00", 
+    "00:51:00", "00:52:00", "00:53:00", "00:54:00", "00:55:00", 
+    "00:56:00", "00:57:00", "00:58:00","00:59:00", "01:00:00", 
+  ];
+
+  chartLabelsMinutes =[ "00:00:00",
+  "00:01:00", "00:02:00", "00:03:00", "00:04:00", "00:05:00", 
+  "00:06:00", "00:07:00", "00:08:00","00:09:00", "00:10:00", 
+  "00:11:00", "00:12:00", "00:13:00", "00:14:00", "00:15:00", 
+  "00:16:00", "00:17:00", "00:18:00","00:19:00", "00:20:00", 
+  "00:21:00", "00:22:00", "00:23:00", "00:24:00", "00:25:00", 
+  "00:26:00", "00:27:00", "00:28:00","00:29:00", "00:30:00", 
+  "00:31:00", "00:32:00", "00:33:00", "00:34:00", "00:35:00", 
+  "00:36:00", "00:37:00", "00:38:00","00:39:00", "00:40:00", 
+  "00:41:00", "00:42:00", "00:43:00", "00:44:00", "00:45:00", 
+  "00:46:00", "00:47:00", "00:48:00","00:49:00", "00:50:00", 
+  "00:51:00", "00:52:00", "00:53:00", "00:54:00", "00:55:00", 
+  "00:56:00", "00:57:00", "00:58:00","00:59:00", "00:59:99", 
+];
+
   chartHovered($event){
     console.log("Chart Hovered!");
   }
@@ -269,6 +299,7 @@ export class ChartComponent implements OnInit {
 
   //HOLDS SENSOR DATA FROM SERVER
   HistoricalSensorData: any = [];
+  LatestTimeStamp: string;
 
   //HOLDS PM DATA
   PMchartData = [
@@ -289,7 +320,7 @@ export class ChartComponent implements OnInit {
   ];
 
   ngOnInit() {
-    let url3 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06305a12/2019/08/30/MINTS_001e06305a12_calibrated_UTC_2019_08_30.csv";
+    let url3 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06305a12/2019/10/29/MINTS_001e06305a12_calibrated_UTC_2019_10_29.csv";
     //GETS HISTORICAL DATA
     this.HistoricalSensorData = JSON.parse(this.sensorDataService.csvJSON(this.sensorDataService.getHistoricalSensorData(url3)));
     console.log(this.HistoricalSensorData);
@@ -314,13 +345,15 @@ export class ChartComponent implements OnInit {
       TempData.push(parseFloat(this.HistoricalSensorData[i]["Temperature"]));
       HumidityData.push(parseFloat(this.HistoricalSensorData[i]["Humidity"]));
     }
-    console.log("Temperature");
-    console.log( TempData);
-    console.log("Humidity");
-    console.log(HumidityData);
+    // console.log("Temperature");
+    // console.log( TempData);
+    // console.log("Humidity");
+    // console.log(HumidityData);
     
     //CREATES DATASETS TO UPDATE CHART
     this.InitializeGraphs(PM2_5data, PM1data, PM4data, PM10data, TempData, HumidityData);
+    this.LatestTimeStamp = this.HistoricalSensorData[0]["dateTime"];
+    console.log("Last Updated: " + this.LatestTimeStamp);
   }
 
   //INITIALIZES GRAPHS

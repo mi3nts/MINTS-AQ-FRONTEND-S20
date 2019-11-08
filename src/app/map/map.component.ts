@@ -20,7 +20,7 @@ export class MapComponent implements OnInit{
   wind_json = require('./wind-gbr.json');
 
   //holds current sensor data
-  sensors:JSON[] =[];
+  sensors:object[] =[];
   //Layer array for circle markers
   markers: Layer[] = [];
 
@@ -77,16 +77,24 @@ export class MapComponent implements OnInit{
     //disables double click zoom
     map.doubleClickZoom.disable();
     //gets url for sensor data. replace with server call
-    let url1 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06305a12/latestData.json";
+    //let url1 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06305a12/latestData.json";
     let url2 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06323a06/latestData.json";
-    this.sensors.push(JSON.parse(this.sensorDataService.getSensorData(url1)));
-    this.sensors.push(JSON.parse(this.sensorDataService.getSensorData(url2)));
-    console.log(this.sensors);
-    //adds marker for each sensor data 
-    for(let i = 0; i < this.sensors.length; i++)
-    {
-        this.addMarker(this.sensors[i]);
-    }
+    let url3 = "http://localhost:3000/latestData";
+
+    //this.sensors.push(JSON.parse(this.sensorDataService.getSensorData(url3)));
+    this.sensorDataService.getSensorData(url3).subscribe((data: any)=>{
+      console.log(data);
+      this.sensors.push(data);
+      this.addMarker(this.sensors[0]);
+      // this.sensors.push(JSON.parse(this.sensorDataService.getSensorDataCORS(url2)));
+          //adds marker for each sensor data 
+      // for(let i = 0; i < this.sensors.length; i++)
+      // {
+          // this.addMarkerCORS(this.sensors[1]);
+      // }
+    })  
+    //console.log(this.sensors);
+
   }
 
   //leaflet map controls for map layers
@@ -118,6 +126,46 @@ export class MapComponent implements OnInit{
     });
   }
 
+  addMarkerCORS(sData){
+    // for(let i = 0; i < sData["entries"].length; i++)
+    // {
+      console.log(sData);
+      //String that gives Real Time information about a Sensor. This is used in the popup modal for the marker
+      let PopupString = "<div style='font-size:14px'><div style='text-align:center; font-weight:bold'>" + "Current Sensor Data </div><br>" + 
+      "<li>PM1: " + parseFloat(sData["entries"][0]["PM1"]).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
+      "<li>PM2_5: " + parseFloat(sData["entries"][0]["PM2_5"]).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
+      "<li>PM4: " + parseFloat(sData["entries"][0]["PM4"]).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
+      "<li>PM10: " + parseFloat(sData["entries"][0]["PM10"]).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
+      "<li>Temperature: " + parseFloat(sData["entries"][0]["Temperature"]).toFixed(2) + " Celcius</li><br>" +
+      "<li>Humidity: " + parseFloat(sData["entries"][0]["Humidity"]).toFixed(2) + "%</li><br>" +
+      "<li>DewPoint: " + parseFloat(sData["entries"][0]["DewPoint"]).toFixed(2) + "%</li></div><br>" +
+      "<div style='text-align:right; font-size: 11px'>Last Updated: " + sData["entries"][0]["dateTime"] + "</div>" ;
+
+      let newMarker = circleMarker([parseFloat(sData["entries"][0]["Latitude"]), parseFloat(sData["entries"][0]["Longitude"])], {
+        radius: 10,
+        color: "#35b000",
+        fillColor: "#a1ff78",
+        fillOpacity: 1
+      })
+      //handles click events for single and double clicks
+      // .on("click", () => {
+      //   this.ClickTimer = setTimeout(()=>{
+      //     if (!this.ClickPrevent) {
+      //       this.doSingleClickAction(this, sData);
+      //     }
+      //     this.ClickPrevent = false;
+      //   }, this.ClickDelay);
+      // })
+      .on("dblclick", () => {
+        clearTimeout(this.ClickTimer);
+        this.ClickPrevent = true;
+        this.doDoubleClickAction();
+      }).bindPopup(PopupString).openPopup();
+      this.markers.push(newMarker);
+    // }
+}
+
+
   //This funciton adds circle markers that represents the sensors
   addMarker(sData){
       // for(let i = 0; i < sData["entries"].length; i++)
@@ -125,16 +173,16 @@ export class MapComponent implements OnInit{
         
         //String that gives Real Time information about a Sensor. This is used in the popup modal for the marker
         let PopupString = "<div style='font-size:14px'><div style='text-align:center; font-weight:bold'>" + "Current Sensor Data </div><br>" + 
-        "<li>PM1: " + parseFloat(sData["entries"][0]["PM1"]).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
-        "<li>PM2_5: " + parseFloat(sData["entries"][0]["PM2_5"]).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
-        "<li>PM4: " + parseFloat(sData["entries"][0]["PM4"]).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
-        "<li>PM10: " + parseFloat(sData["entries"][0]["PM10"]).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
-        "<li>Temperature: " + parseFloat(sData["entries"][0]["Temperature"]).toFixed(2) + " Celcius</li><br>" +
-        "<li>Humidity: " + parseFloat(sData["entries"][0]["Humidity"]).toFixed(2) + "%</li><br>" +
-        "<li>DewPoint: " + parseFloat(sData["entries"][0]["DewPoint"]).toFixed(2) + "%</li></div><br>" +
-        "<div style='text-align:right; font-size: 11px'>Last Updated: " + sData["entries"][0]["dateTime"] + "</div>" ;
+        "<li>PM1: " + parseFloat(sData.PM1).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
+        "<li>PM2_5: " + parseFloat(sData.PM2_5).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
+        "<li>PM4: " + parseFloat(sData.PM4).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
+        "<li>PM10: " + parseFloat(sData.PM10).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
+        "<li>Temperature: " + parseFloat(sData.Temperature).toFixed(2) + " Celcius</li><br>" +
+        "<li>Humidity: " + parseFloat(sData.Humidity).toFixed(2) + "%</li><br>" +
+        "<li>DewPoint: " + parseFloat(sData.DewPoint).toFixed(2) + "%</li></div><br>" +
+        "<div style='text-align:right; font-size: 11px'>Last Updated: " + sData.__time + " UTC</div>";
 
-        let newMarker = circleMarker([parseFloat(sData["entries"][0]["Latitude"]), parseFloat(sData["entries"][0]["Longitude"])], {
+        let newMarker = circleMarker([parseFloat(sData.Latitude), parseFloat(sData.Longitude)], { 
           radius: 10,
           color: "#35b000",
           fillColor: "#a1ff78",
