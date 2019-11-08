@@ -3,7 +3,39 @@
         <script src="js/leaflet/leaflet.js"></script>  
         <script src="js/main.js"></script>
         <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+
+        <style>
+            img{
+                height: auto;
+                width: 2%;
+                
+                position:absolute;
+                z-index:3;
+                left:85px;
+
+                transform: rotate(10deg);
+                padding: 8px;
+            }
+
+            h1{
+
+                position:absolute;
+                z-index:3;
+                vertical-align: baseline;
+
+                letter-spacing: 1px;
+                margin:0px;
+                
+                padding: 5px;
+                
+                size: 2.5em;
+            }
+        </style>
 </head>
+
+<img src="../assets/mint_leaf.png" class="mint_leaf">
+<h1 class=text>мιnтѕ</h1>
+
 <div id="container">
     <app-side-bar></app-side-bar>
     <div class="map" id="map1"
@@ -13,4 +45,8 @@
     [leafletLayers]="markers"
     [leafletLayersControl]="layersControl" markers="markers">
     </div>
+    
+</div>
+<div id="streetMaps">
+    
 </div>

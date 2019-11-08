@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { latLng,  tileLayer, marker, icon, polyline, Map, Layer, circle, circleMarker, LeafletEventHandlerFn, Control, LayerGroup} from 'leaflet';
 import { SensorDataService } from '../sensor-data.service';
 import 'leaflet-velocity-ts';
+import {} from 'googlemaps';
+import { ViewChild } from '@angular/core';
 declare var L: any;
 declare var require: any;
 
@@ -27,20 +29,18 @@ export class MapComponent implements OnInit{
   ClickDelay: number = 200;
   ClickPrevent: Boolean = false;
 
+  //White street map
   streetMaps = tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    detectRetina: true,
-    attribution: '&amp;copy; &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors'
-  });
-  wikiMaps = tileLayer('http://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
-    detectRetina: true,
+    //detectRetina: true,
     attribution: '&amp;copy; &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors'
   });
 
-  Esri_WorldStreetMap = tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-    detectRetina: true,
-	  attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+  //Satellite image map
+  Esri_WorldImagery = tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
   });
 
+  //Dark theme
   DarkMap = L.tileLayer(
     "http://{s}.sm.mapstack.stamen.com/" +
     "(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/" +
@@ -51,9 +51,10 @@ export class MapComponent implements OnInit{
     }
   );
 
-  
+
   wind_overlay: any;
   layerGrp: LayerGroup;
+  imageUrl:any;
 
   //function that runs when the map is loaded and ready to receive layers
   onMapReady(map:Map){
@@ -61,14 +62,15 @@ export class MapComponent implements OnInit{
     this.layersControl = {
       baseLayers: {
         'Street Maps': this.streetMaps,
-        'Wikimedia Maps': this.wikiMaps,
-        'ESRI Maps': this.Esri_WorldStreetMap,
+        'Satellite': this.Esri_WorldImagery,
         'Dark Mode': this.DarkMap
       },
       overlays:{
-          "Wind Overlay": this.wind_overlay
+          "Wind Overlay": this.wind_overlay,
       }
     };
+    
+
 
     //changes zoom control position
     map.addControl( L.control.zoom({position:'bottomright'}));
@@ -175,7 +177,7 @@ export class MapComponent implements OnInit{
 
   //component initialize function
   ngOnInit():void{
-  
+
   }
 
   ngAfterViewInit():void{
