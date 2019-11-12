@@ -219,6 +219,23 @@ export class ChartComponent implements OnInit {
       },
     };
 
+  //CHART CONFIG FOR LABELS
+  chartLabelsTriHourly =[
+    "00:00:00", " 03:00:00", 
+    "06:00:00", "09:00:00", 
+    "12:00:00", "15:00:00", 
+    "18:00:00", "23:59:59"
+  ];
+
+  chartLabelsHourly =[
+    "00:00:00", "01:00:00", "02:00:00", "03:00:00", 
+    "04:00:00", "05:00:00", "06:00:00", "07:00:00",
+    "08:00:00", "09:00:00", "10:00:00", "11:00:00", 
+    "12:00:00", "13:00:00", "14:00:00", "15:00:00",
+    "16:00:00", "17:00:00", "18:00:00", "19:00:00", 
+    "20:00:00", "21:00:00", "22:00:00", "23:59:59"
+  ];
+
   chartHovered($event){
     console.log("Chart Hovered!");
   }
@@ -240,6 +257,7 @@ export class ChartComponent implements OnInit {
 
   //HOLDS SENSOR DATA FROM SERVER
   HistoricalSensorData: any = [];
+  LatestTimeStamp: string;
 
   //HOLDS PM DATA
   PMchartData = [
@@ -291,7 +309,7 @@ export class ChartComponent implements OnInit {
   TimechartData: Date[]= [];
   TimeTicks:any[] = [];
   ngOnInit() {
-    let url3 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06305a12/2019/08/30/MINTS_001e06305a12_calibrated_UTC_2019_08_30.csv";
+    let url3 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06305a12/2019/10/29/MINTS_001e06305a12_calibrated_UTC_2019_10_29.csv";
     //GETS HISTORICAL DATA
     this.HistoricalSensorData = JSON.parse(this.sensorDataService.csvJSON(this.sensorDataService.getHistoricalSensorData(url3)));
     console.log(this.HistoricalSensorData);

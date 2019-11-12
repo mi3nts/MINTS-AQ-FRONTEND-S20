@@ -4,17 +4,18 @@
     width:100%;
     padding:0;
 }
+
 .sidebar{
     display: none;
     position: absolute;
-    height: 95%;
+    height: 100%;
     width: 33%;
     background-color: white;
     z-index: 2;
     border-radius: 5px;
-    left: 20px;
+    /*left: 20px;*/
     top: 25px;
-    box-shadow: 10px 10px grey;
+    box-shadow: 10px 10px rgba(128, 128, 128, 0.438);
     overflow-y:auto;
     overflow: -moz-scrollbars-none;
     -ms-overflow-style: none;
@@ -25,6 +26,7 @@
 .sidebarcontents{
     text-align:center;
     padding:10px;
+    top:10px;
 }
 
 .SideBarButton {

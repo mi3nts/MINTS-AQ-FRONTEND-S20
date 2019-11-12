@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SensorDataService {
+  latestData: any
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   csvJSON(csv):string{
 
@@ -31,7 +33,13 @@ export class SensorDataService {
     return JSON.stringify(result); //JSON
   }
 
-   getSensorData(url):string{
+   getSensorData(url: string){
+    //  this.http.get(url).subscribe(obj => this.latestData = obj); 
+    //  return this.latestData;
+    return this.http.get(url);
+  }
+
+  getSensorDataCORS(url):string{
     let data;
     let xhr = new XMLHttpRequest();
      xhr.onreadystatechange = function() {
@@ -54,7 +62,7 @@ export class SensorDataService {
     xhr.open("GET", url, false);
     // xhr.setRequestHeader("Accept", '');
     xhr.send();
-    return data;
+    return data; 
   }
 
 
