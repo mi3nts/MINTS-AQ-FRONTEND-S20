@@ -2,8 +2,9 @@
   <script src="/assets/js/Chart.min.js"></script>
 </head>
 <h2>Particle Matter Pollution Graph</h2>
-<div style="display:block">
-  <canvas baseChart width="400px" height="200px"
+
+<div style="display:block" class="chart">
+  <canvas baseChart width="400px" height="400px"
   [datasets]="PMchartData"
   [labels]="chartLabelsHourly"
   [options]="PMlineChartOptions"
@@ -13,7 +14,9 @@
   [plugins]="lineChartPlugins"
   (chartHover)="chartHovered($event)"
   (chartClick)="chartClicked($event)"></canvas>
-<br>
+
+
+<!-- <br>
 <h2>Temperature Graph</h2>
 <div style="display:block">
   <canvas baseChart width="400px" height="200px"
@@ -39,4 +42,4 @@
   [plugins]="lineChartPlugins"
   (chartHover)="chartHovered($event)"
   (chartClick)="chartClicked($event)"></canvas>
-</div> 
+</div>  -->
