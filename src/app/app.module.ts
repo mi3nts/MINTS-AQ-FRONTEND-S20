@@ -9,13 +9,15 @@ import { MapComponent } from './map/map.component';
 import { ChartComponent } from './chart/chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { SideBarComponent } from './side-bar/side-bar.component';
+import { HeaderBarComponent } from './header-bar/header-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     ChartComponent,
-    SideBarComponent
+    SideBarComponent,
+    HeaderBarComponent
   ],
   imports: [
     BrowserModule,

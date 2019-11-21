@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { latLng,  tileLayer, marker, icon, polyline, Map, Layer, circle, circleMarker, LeafletEventHandlerFn, Control, LayerGroup} from 'leaflet';
 import { SensorDataService } from '../sensor-data.service';
 import 'leaflet-velocity-ts';
-import {} from 'googlemaps';
+// import {} from 'googlemaps';
 import { ViewChild } from '@angular/core';
 declare var L: any;
 declare var require: any;
@@ -230,6 +230,4 @@ export class MapComponent implements OnInit{
 
   ngAfterViewInit():void{
   }
-
-
 }
