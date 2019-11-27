@@ -4,9 +4,9 @@
 <h2>Particle Matter Pollution Graph</h2>
 <h5>Last Updated: {{LatestTimeStamp}} UTC</h5>
 <div style="display:block">
-  <canvas baseChart width="400px" height="200px"
+  <canvas baseChart width="400px" height="400px"
   [datasets]="PMchartData"
-  [labels]="chartLabelsHour"
+  [labels]="chartLabels5Minutes"
   [options]="PMlineChartOptions"
   [colors]="lineChartColors"
   [legend]="lineChartLegend"
@@ -14,7 +14,9 @@
   [plugins]="lineChartPlugins"
   (chartHover)="chartHovered($event)"
   (chartClick)="chartClicked($event)"></canvas>
-<br>
+
+
+<!-- <br>
 <h2>Temperature Graph</h2>
 <div style="display:block">
   <canvas baseChart width="400px" height="200px"
@@ -40,4 +42,4 @@
   [plugins]="lineChartPlugins"
   (chartHover)="chartHovered($event)"
   (chartClick)="chartClicked($event)"></canvas>
-</div> 
+</div>  -->

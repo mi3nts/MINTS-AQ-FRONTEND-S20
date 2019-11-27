@@ -1,0 +1,17 @@
+.container{
+    height:6%;
+    text-align:middle;
+    display: flex;
+    justify-content: left;
+    border-bottom:2px solid lightgrey;
+}
+.headerbutton{
+    background-color: white;
+    border:none;
+    font-size:16px;
+}
+
+.mint_leaf{
+    width:10px;
+    height:10px;
+}
