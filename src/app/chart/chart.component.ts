@@ -98,8 +98,13 @@ export class ChartComponent implements OnInit {
                   x: null,
                   y: null
               },
-              sensitivity:5,
-              speed: 100,
+              //sensitivity:5,
+              speed: 0.01,
+              // sensitivity: 0.1,
+               limits: {
+                 max: 10,
+                 min: 0.5
+               },
    
               // Function called while the user is panning
               onPan: function({chart}) { console.log(`I'm panning!!!`); },

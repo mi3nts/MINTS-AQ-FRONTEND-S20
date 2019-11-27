@@ -69,8 +69,6 @@ export class MapComponent implements OnInit{
           "Wind Overlay": this.wind_overlay,
       }
     };
-    
-
 
     //changes zoom control position
     map.addControl( L.control.zoom({position:'bottomright'}));
@@ -79,13 +77,13 @@ export class MapComponent implements OnInit{
     //gets url for sensor data. replace with server call
     //let url1 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06305a12/latestData.json";
     let url2 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06323a06/latestData.json";
-    let url3 = "http://localhost:3000/latestData";
+    let url3 = "http://localhost:3000/sensors";
 
     //this.sensors.push(JSON.parse(this.sensorDataService.getSensorData(url3)));
     this.sensorDataService.getSensorData(url3).subscribe((data: any)=>{
       console.log(data);
       this.sensors.push(data);
-      this.addMarker(this.sensors[0]);
+      // this.addMarker(this.sensors[0]);
       // this.sensors.push(JSON.parse(this.sensorDataService.getSensorDataCORS(url2)));
           //adds marker for each sensor data 
       // for(let i = 0; i < this.sensors.length; i++)

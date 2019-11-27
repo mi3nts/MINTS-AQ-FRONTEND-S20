@@ -10,6 +10,7 @@ import { ChartComponent } from './chart/chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { HeaderBarComponent } from './header-bar/header-bar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HeaderBarComponent } from './header-bar/header-bar.component';
     BrowserModule,
     LeafletModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    BrowserAnimationsModule
   ],
   bootstrap: [AppComponent]
 
