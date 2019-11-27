@@ -32,24 +32,13 @@ export class SensorDataService {
     //return result; //JavaScript object
     return JSON.stringify(result); //JSON
   }
-
-   getSensorData(url: string){
-    //  this.http.get(url).subscribe(obj => this.latestData = obj); 
-    //  return this.latestData;
-    return this.http.get(url);
-  }
-
-  getSensorDataCORS(url):string{
-    let data;
-    let xhr = new XMLHttpRequest();
-     xhr.onreadystatechange = function() {
-       if (this.readyState === 4 && this.status === 200) {
-          data = this.responseText;}
-     }
-    xhr.open("GET", url, false);
-    xhr.setRequestHeader("Accept", 'application/json');
-    xhr.send();
-    return data;
+   getSensorIDs(){
+    let URL: string = "http://imd.utdallas.edu:3002/sensors";
+    return this.http.get(URL);
+   }
+   getSensorData(sensorID:string){
+    let URL: string = "http://imd.utdallas.edu:3002/latestData/?sensor=" + sensorID;
+    return this.http.get(URL);
   }
 
   getHistoricalSensorData(url):string{
@@ -64,7 +53,8 @@ export class SensorDataService {
     xhr.send();
     return data; 
   }
-
-
+  
+  getWindData(url:string){
+    return this.http.get(url);
+  }
 }
-
