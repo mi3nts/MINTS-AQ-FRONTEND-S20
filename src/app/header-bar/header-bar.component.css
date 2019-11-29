@@ -1,4 +1,4 @@
-.container{
+/* .container{
     height:6%;
     text-align:middle;
     display: flex;
@@ -10,8 +10,14 @@
     border:none;
     font-size:16px;
 }
-
+*/
 .mint_leaf{
     width:10px;
     height:10px;
 }
+
+.fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+  }
