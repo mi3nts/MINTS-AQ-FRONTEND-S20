@@ -14,24 +14,15 @@ export class ChartComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   constructor(private sensorDataService: SensorDataService) { }
 
-  //CHART OPTIONS FOR PM GRAPH
+  //CHART JS OPTIONS CONFIGURATION FOR PM (Partical Matter) GRAPH
   public PMlineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
       xAxes: [{
         scaleLabel:{
           display: true,
           labelString:'Hours per Day'
         },
-        // type:'time',
-        // time:{
-        //   unit: 'day',
-        //   unitStepSize:1,
-        //   displayFormats:{
-        //     'day': 'MMM DD'
-        //   }
-        // }
       }],
       yAxes: [
         {
@@ -200,7 +191,7 @@ export class ChartComponent implements OnInit {
     }
   ];
 
-    //LINE CHART CONFIG
+  //LINE CHART CONFIG
   LineChartConfig = {
       legend: {
         display: true,
@@ -223,23 +214,6 @@ export class ChartComponent implements OnInit {
         ],
       },
     };
-
-  //CHART CONFIG FOR LABELS
-  chartLabelsTriHourly =[
-    "00:00:00", " 03:00:00", 
-    "06:00:00", "09:00:00", 
-    "12:00:00", "15:00:00", 
-    "18:00:00", "23:59:59"
-  ];
-
-  chartLabelsHourly =[
-    "00:00:00", "01:00:00", "02:00:00", "03:00:00", 
-    "04:00:00", "05:00:00", "06:00:00", "07:00:00",
-    "08:00:00", "09:00:00", "10:00:00", "11:00:00", 
-    "12:00:00", "13:00:00", "14:00:00", "15:00:00",
-    "16:00:00", "17:00:00", "18:00:00", "19:00:00", 
-    "20:00:00", "21:00:00", "22:00:00", "23:59:59"
-  ];
 
   chartHovered($event){
     console.log("Chart Hovered!");
@@ -282,7 +256,7 @@ export class ChartComponent implements OnInit {
     { data: [], label: '', fill:false }
   ];
 
-    
+  //CHART CONFIG FOR LABELS
   chartLabels5Minutes =[
        "00:00:00", "00:05:00", "00:10:00", "00:15:00", "00:20:00", "00:25:00", "00:30:00", "00:35:00", "00:40:00", "00:45:00", "00:50:00", "00:55:00",
        "01:00:00", "01:05:00", "01:10:00", "01:15:00", "01:20:00", "01:25:00", "01:30:00", "01:35:00", "01:40:00", "01:45:00", "01:50:00", "01:55:00",
@@ -313,6 +287,7 @@ export class ChartComponent implements OnInit {
 
   TimechartData: Date[]= [];
   TimeTicks:any[] = [];
+
   ngOnInit() {
     let url3 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06305a12/2019/10/29/MINTS_001e06305a12_calibrated_UTC_2019_10_29.csv";
     //GETS HISTORICAL DATA
@@ -321,7 +296,7 @@ export class ChartComponent implements OnInit {
     //CALLS TO PARSE DATA
     this.ParseHistoricalData();
   }
-  //PARSES HISTORICAL DATA TO GET PERTINENT INFORMATION AND SAVES IT
+  //PARSES HISTORICAL DATA AND SAVES IT
   ParseHistoricalData(){
     let PM2_5data: Number[] = [];
     let PM1data: Number[] = [];
@@ -361,6 +336,8 @@ export class ChartComponent implements OnInit {
     // this.TimeTicks = timeTicks;
     // this.lineChartLabels = timeTicks;
   }
+
+  //CHART CONFIGS FOR OTHER CHARTS 
 
   //  //CHART OPTIONS FOR TEMPERATURE
   //  public TemperaturelineChartOptions: (ChartOptions & { annotation: any }) = {

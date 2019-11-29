@@ -72,17 +72,23 @@ export class MapComponent implements OnInit{
 
     //changes zoom control position
     map.addControl( L.control.zoom({position:'bottomright'}));
+
     //disables double click zoom
     map.doubleClickZoom.disable();
-    this.sensorDataService.getSensorIDs().subscribe((data: any)=>{
-      this.sensorIDs = data;
-   for(let i = 0; i < this.sensorIDs.sensors.length; i++)
-   {
-    this.sensorDataService.getSensorData(this.sensorIDs.sensors[i]).subscribe((data: any)=>{
-      this.sensors.push(data);
-      this.addMarker(data);
-    })  
-   }
+
+    //gets a list of sensor IDs to begin getting real time data
+    this.sensorDataService.getSensorIDs().subscribe((data1: any)=>{
+      this.sensorIDs = data1;
+
+      //loop through each sensor in the list
+      for(let i = 0; i < this.sensorIDs.sensors.length; i++)
+      {
+        //get real time sensor data and add a marker for each sensor in list
+        this.sensorDataService.getSensorData(this.sensorIDs.sensors[i]).subscribe((data2: any)=>{
+          this.sensors.push(data2);
+          this.addMarker(data2);
+        })  
+      }
    })
   }
 
@@ -133,13 +139,14 @@ export class MapComponent implements OnInit{
         "<li>DewPoint: " + parseFloat(sData.DewPoint).toFixed(2) + "%</li></div><br>" +
         "<div style='text-align:right; font-size: 11px'>Last Updated: " + sData.dateTime + " UTC</div>";
 
+        //create the marker
         let newMarker = circleMarker([parseFloat(sData.Latitude), parseFloat(sData.Longitude)], { 
           radius: 10,
           color: "#35b000",
           fillColor: "#a1ff78",
           fillOpacity: 1
         })
-        //handles click events for single and double clicks
+        //handles click events for single clicks
         // .on("click", () => {
         //   this.ClickTimer = setTimeout(()=>{
         //     if (!this.ClickPrevent) {
@@ -148,6 +155,7 @@ export class MapComponent implements OnInit{
         //     this.ClickPrevent = false;
         //   }, this.ClickDelay);
         // })
+        //handles click events for double click events
         .on("dblclick", () => {
           clearTimeout(this.ClickTimer);
           this.ClickPrevent = true;
