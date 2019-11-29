@@ -1,7 +1,10 @@
-<div class="sidebar" id="sDataDetails">
-  <button class="SideBarButton" id="CloseButton" (click)="CloseSideBar($event)">✖</button>
-  <div class="sidebarcontents">
-          <h1 class="header1">Historical Sensor Data Graphs</h1>
-          <app-chart></app-chart>
+<mat-sidenav #sidenav mode="over" closed>
+  <div class="sidebar" id="sDataDetails">
+    <button class="SideBarButton" id="CloseButton" (click)="sidenav.toggle()">✖</button>
+    <div class="sidebarcontents">
+            <h1 class="header1">Historical Sensor Data Graphs</h1>
+            <app-chart></app-chart>
+    </div>
   </div>
-</div>
+</mat-sidenav>
+

@@ -4,6 +4,11 @@ import { NgModule } from '@angular/core';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import {HttpClientModule} from '@angular/common/http';
 
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav'
+
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { ChartComponent } from './chart/chart.component';
@@ -25,7 +30,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LeafletModule,
     HttpClientModule,
     ChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule
   ],
   bootstrap: [AppComponent]
 
