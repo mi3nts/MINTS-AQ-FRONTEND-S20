@@ -296,23 +296,21 @@ export class ChartComponent implements OnInit {
     //this.HistoricalSensorData = JSON.parse(this.sensorDataService.csvJSON(this.sensorDataService.getHistoricalSensorData(url3)));
     this.sensorDataService.getHistoricalSensorData(sensorID).subscribe((data1: any)=>{
       this.HistoricalSensorData = data1;
-      console.log(this.HistoricalSensorData);
         //CALLS TO PARSE DATA
       this.ParseHistoricalData(data1);
     })
   }
   //PARSES HISTORICAL DATA AND SAVES IT
   ParseHistoricalData(HistSensorData){
+    console.log(HistSensorData);
     let PM2_5data: Number[] = [];
     let PM1data: Number[] = [];
     let PM4data: Number[] = [];
     let PM10data: Number[] = [];
     let TimeData: Date[] = [];
-    let timeTicks: any[] = [];
-    console.log(this.HistoricalSensorData.entries);
-    for(let i=0; i < this.HistoricalSensorData.entries.length; i++ )
+    let timeTicks: any[] = [];   
+    for(let i=0; i < HistSensorData.entries.length; i++ )
     {
-      console.log(HistSensorData.entries[0].result[0].PM2_5);
       // console.log((HistSensorData.entries[i].result));
       if(typeof HistSensorData.entries[i].result[0] !== "undefined"){
         PM2_5data.push(parseFloat(HistSensorData.entries[i].result[0].PM2_5));
@@ -323,10 +321,8 @@ export class ChartComponent implements OnInit {
       // TimeData.push(new Date(this.HistoricalSensorData[i]["dateTime"]));
       // timeTicks.push(TimeData[i].toLocaleString());
     }
-    // this.LatestTimeStamp = this.HistoricalSensorData[0]["dateTime"];
-    console.log(PM2_5data);
-    // console.log(this.LatestTimeStamp);
-    // console.log(timeTicks);
+    this.LatestTimeStamp = this.HistoricalSensorData.entries[this.HistoricalSensorData.entries.length - 1].timestamp;
+    console.log(this.HistoricalSensorData.entries);
 
     //CREATES DATASETS TO UPDATE CHART
     this.InitializeGraphs(PM2_5data, PM1data, PM4data, PM10data, TimeData, timeTicks);
@@ -349,6 +345,14 @@ export class ChartComponent implements OnInit {
 
   gotHistoricalData:boolean = false;
   resetHistoricalData:boolean = false;
+
+  ResetChartData(){
+    this.PMchartData[0].data = [];
+    this.PMchartData[1].data = [];
+    this.PMchartData[2].data = [];
+    this.PMchartData[3].data = [];
+  }
+
   ngAfterViewChecked(){
     if(!this.gotHistoricalData){
       if(document.getElementById("sDataDetails").style.display === "block"){
@@ -364,7 +368,8 @@ export class ChartComponent implements OnInit {
       if(document.getElementById("sDataDetails").style.display === "none")
       {
         this.gotHistoricalData = false;
-        this.resetHistoricalData = false;
+        this.ResetChartData();
+        this.resetHistoricalData = true;
       }
     }
   }

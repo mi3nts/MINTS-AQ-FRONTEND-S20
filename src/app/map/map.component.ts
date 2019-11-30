@@ -14,7 +14,6 @@ declare var require: any;
 
 export class MapComponent implements OnInit{
   constructor(private sensorDataService: SensorDataService, private sideBarService: SideBarService){
-  showSpinner:boolean = true;
   }
 
   
@@ -30,7 +29,7 @@ export class MapComponent implements OnInit{
   ClickTimer: any = 0;
   ClickDelay: number = 200;
   ClickPrevent: Boolean = false;
-
+  showSpinner: Boolean = true;
   //White street map
   streetMaps = tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     //detectRetina: true,
@@ -109,8 +108,6 @@ export class MapComponent implements OnInit{
   //This funciton adds circle markers that represents the sensors
   addMarker(sData, sensorID){
     //String that gives Real Time information about a Sensor. This is used in the popup modal for the marker
-    console.log(sData);
-    console.log(this.sensors);
     let PopupString = "<div style='font-size:14px'><div style='text-align:center; font-weight:bold'>" + "Current Sensor Data </div><br>";
     if(!isNaN(parseFloat(sData.PM1)))
       PopupString += "<li>PM1: " + parseFloat(sData.PM1).toFixed(2) + " Micrograms Per Cubic Meter</li><br>";
@@ -156,14 +153,16 @@ export class MapComponent implements OnInit{
 
   OpenSideBar(){
     console.log("OpenSideBar Called!");
+    // if(document.getElementById("sDataDetails").style.display === "none")
     document.getElementById("sDataDetails").style.display="block";
   }
 
   //function for double click action
   doDoubleClickAction(sensorID){
+    this.OpenSideBar();
     console.log(sensorID);
     this.sideBarService.setSensorID(sensorID);
-    this.OpenSideBar();
+
   }
 
   //function for single click action

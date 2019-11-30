@@ -15,7 +15,7 @@ export class SideBarComponent implements OnInit {
   //Closes sidebar using x at the top left
   CloseSideBar($event)
   {
-    document.getElementById("sDataDetails").style.visibility="hidden";
+    document.getElementById("sDataDetails").style.display="none";
     this.sideBarService.setSensorID("");
   }
 }
