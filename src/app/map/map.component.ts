@@ -3,6 +3,7 @@ import { latLng,  tileLayer, marker, icon, polyline, Map, Layer, circle, circleM
 import { SensorDataService } from '../sensor-data.service';
 import 'leaflet-velocity-ts';
 import { ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
 declare var L: any;
 declare var require: any;
 
@@ -57,8 +58,7 @@ export class MapComponent implements OnInit{
   imageUrl:any;
 
   //function that runs when the map is loaded and ready to receive layers
-  onMapReady(map:Map){
-    this.AddWindOverlay(map);
+  async onMapReady(map:Map){
     this.layersControl = {
       baseLayers: {
         'Street Maps': this.streetMaps,
@@ -66,10 +66,9 @@ export class MapComponent implements OnInit{
         'Dark Mode': this.DarkMap
       },
       overlays:{
-          "Wind Overlay": this.wind_overlay,
+          "Wind Overlay": await this.getWindOverlay(map),
       }
     };
-
     //changes zoom control position
     map.addControl( L.control.zoom({position:'bottomright'}));
     //disables double click zoom
@@ -97,13 +96,10 @@ export class MapComponent implements OnInit{
     zoomControl:false
   };
 
+ 
   //adds wind overlay to leaflet map
-  AddWindOverlay(map:Map){
-    let url1 = "http://imd.utdallas.edu:3000/data/latest";
-    this.sensorDataService.getWindData(url1).subscribe((data:any)=>{
-        this.wind_latest = data
-    });
-    this.wind_overlay =  L.velocityLayer({
+  async getWindOverlay(map:Map){
+    let wind_overlay = await L.velocityLayer({
       displayValues: true,
       displayOptions: {
         velocityType: 'GBR Wind',
@@ -114,9 +110,10 @@ export class MapComponent implements OnInit{
         displayEmptyString: 'No velocity data',
         speedUnit: 'm/s'
       },
-      data: this.wind_json,
+      data: this.wind_latest,
       maxVelocity: 10,
     });
+    return wind_overlay;
   }
 
   //This funciton adds circle markers that represents the sensors
@@ -174,8 +171,16 @@ export class MapComponent implements OnInit{
   }
 
   //component initialize function
-  ngOnInit():void{
-
+  async ngOnInit(){
+    await this.sensorDataService.getWindData("http://imd.utdallas.edu:3000/data/latest").subscribe(
+      data => {
+        this.wind_latest = data;
+      },
+      error => {
+        console.error('There was an error!', error)
+        return [];
+      }
+    )
   }
 
   ngAfterViewInit():void{
