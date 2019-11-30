@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { latLng,  tileLayer, marker, icon, polyline, Map, Layer, circle, circleMarker, LeafletEventHandlerFn, Control, LayerGroup} from 'leaflet';
 import { SensorDataService } from '../sensor-data.service';
+import {SideBarService} from '../side-bar.service';
 import 'leaflet-velocity-ts';
 declare var L: any;
 declare var require: any;
@@ -12,8 +13,8 @@ declare var require: any;
 })
 
 export class MapComponent implements OnInit{
+  constructor(private sensorDataService: SensorDataService, private sideBarService: SideBarService){
   showSpinner:boolean = true;
-  constructor(private sensorDataService: SensorDataService){
   }
 
   
@@ -86,9 +87,9 @@ export class MapComponent implements OnInit{
       for(let i = 0; i < this.sensorIDs.sensors.length; i++)
       {
         //get real time sensor data and add a marker for each sensor in list
-        this.sensorDataService.getSensorData(this.sensorIDs.sensors[i]).subscribe((data2: any)=>{
+        this.sensorDataService.getRealTimeSensorData(this.sensorIDs.sensors[i]).subscribe((data2: any)=>{
           this.sensors.push(data2);
-          this.addMarker(data2);
+          this.addMarker(data2, this.sensorIDs.sensors[i]);
         })  
       }
    })
@@ -106,9 +107,10 @@ export class MapComponent implements OnInit{
   };
 
   //This funciton adds circle markers that represents the sensors
-  addMarker(sData){
+  addMarker(sData, sensorID){
     //String that gives Real Time information about a Sensor. This is used in the popup modal for the marker
-        
+    console.log(sData);
+    console.log(this.sensors);
     let PopupString = "<div style='font-size:14px'><div style='text-align:center; font-weight:bold'>" + "Current Sensor Data </div><br>";
     if(!isNaN(parseFloat(sData.PM1)))
       PopupString += "<li>PM1: " + parseFloat(sData.PM1).toFixed(2) + " Micrograms Per Cubic Meter</li><br>";
@@ -147,20 +149,20 @@ export class MapComponent implements OnInit{
     .on("dblclick", () => {
       clearTimeout(this.ClickTimer);
       this.ClickPrevent = true;
-      this.doDoubleClickAction();
+      this.doDoubleClickAction(sensorID);
     }).bindPopup(PopupString).openPopup();
     this.markers.push(newMarker);
   }
 
-  //function that opens sidebar and populates it
   OpenSideBar(){
     console.log("OpenSideBar Called!");
     document.getElementById("sDataDetails").style.display="block";
   }
 
   //function for double click action
-  doDoubleClickAction(){
-    console.log("click twice");
+  doDoubleClickAction(sensorID){
+    console.log(sensorID);
+    this.sideBarService.setSensorID(sensorID);
     this.OpenSideBar();
   }
 

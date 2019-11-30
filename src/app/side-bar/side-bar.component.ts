@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {SideBarService} from '../side-bar.service';
 @Component({
   selector: 'app-side-bar',
   templateUrl: './side-bar.component.html',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sideBarService: SideBarService) { }
 
   ngOnInit() {
   }
@@ -15,6 +15,7 @@ export class SideBarComponent implements OnInit {
   //Closes sidebar using x at the top left
   CloseSideBar($event)
   {
-    document.getElementById("sDataDetails").style.display="none";
+    document.getElementById("sDataDetails").style.visibility="hidden";
+    this.sideBarService.setSensorID("");
   }
 }
