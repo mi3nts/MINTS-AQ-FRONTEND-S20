@@ -33,9 +33,11 @@
         </style>
 </head>
 
+
 <div id="container">
     <app-side-bar></app-side-bar>
-    <div class="map" id="map1" *ngIf="this.wind_overlay"
+    
+    <div class="map" id="map1" *ngIf="!showSpinner"
     leaflet
     (leafletMapReady)="onMapReady($event)"
     [leafletOptions]="options"
@@ -43,7 +45,7 @@
     [leafletLayersControl]="layersControl" 
     markers="markers">
     </div>
-    
+    <div class="loading" [ng2-loading]="showSpinner"></div>
 </div>
 <div id="streetMaps">
     

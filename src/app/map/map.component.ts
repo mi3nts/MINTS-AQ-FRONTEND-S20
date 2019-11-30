@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { latLng,  tileLayer, marker, icon, polyline, Map, Layer, circle, circleMarker, LeafletEventHandlerFn, Control, LayerGroup} from 'leaflet';
 import { SensorDataService } from '../sensor-data.service';
 import 'leaflet-velocity-ts';
-import { ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
 declare var L: any;
 declare var require: any;
 
@@ -14,9 +12,11 @@ declare var require: any;
 })
 
 export class MapComponent implements OnInit{
+  showSpinner:boolean = true;
   constructor(private sensorDataService: SensorDataService){
   }
 
+  
   wind_json = require('./wind-gbr.json');
 
   //holds current sensor data
@@ -69,6 +69,7 @@ export class MapComponent implements OnInit{
       }
     };
   }
+
   //function that runs when the map is loaded and ready to receive layers
   onMapReady(map:Map){
     //changes zoom control position
@@ -98,7 +99,7 @@ export class MapComponent implements OnInit{
 
   //leaflet options
   options = {
-    layers: this.streetMaps,
+    layers: this.DarkMap,
     zoom: 10,
     center: latLng([ 	32.897480,  -97.040443 ]),
     zoomControl:false
@@ -190,11 +191,18 @@ export class MapComponent implements OnInit{
       data => {
         this.wind_overlay = this.calculateWindOverlay(data);
         this.refreshLayersControl();
+        setTimeout(() => {
+          this.showSpinner = false;
+        }, 3000);
       },
       error => {
         console.error('There was an error!', error)
         this.wind_overlay = this.calculateWindOverlay([]);
         this.refreshLayersControl();
+        setTimeout(() => {
+          this.showSpinner = false;
+        }, 3000);
+        
       }
     )
   }
