@@ -18,7 +18,7 @@ export class MapComponent implements OnInit{
   }
 
   wind_json = require('./wind-gbr.json');
-  wind_latest: any;
+
   //holds current sensor data
   sensors:object[] = [];
   sensorIDs:any;
@@ -56,9 +56,8 @@ export class MapComponent implements OnInit{
   wind_overlay: any;
   layerGrp: LayerGroup;
   imageUrl:any;
-
-  //function that runs when the map is loaded and ready to receive layers
-  async onMapReady(map:Map){
+  
+  refreshLayersControl(){
     this.layersControl = {
       baseLayers: {
         'Street Maps': this.streetMaps,
@@ -66,9 +65,12 @@ export class MapComponent implements OnInit{
         'Dark Mode': this.DarkMap
       },
       overlays:{
-          "Wind Overlay": await this.getWindOverlay(map),
+          "Wind Overlay": this.wind_overlay,
       }
     };
+  }
+  //function that runs when the map is loaded and ready to receive layers
+  onMapReady(map:Map){
     //changes zoom control position
     map.addControl( L.control.zoom({position:'bottomright'}));
     //disables double click zoom
@@ -95,26 +97,6 @@ export class MapComponent implements OnInit{
     center: latLng([ 	32.897480,  -97.040443 ]),
     zoomControl:false
   };
-
- 
-  //adds wind overlay to leaflet map
-  async getWindOverlay(map:Map){
-    let wind_overlay = await L.velocityLayer({
-      displayValues: true,
-      displayOptions: {
-        velocityType: 'GBR Wind',
-        position: 'topleft',//REQUIRED !
-        emptyString: 'No velocity data', //REQUIRED !
-        angleConvention: 'bearingCW',
-        displayPosition: 'topleft',
-        displayEmptyString: 'No velocity data',
-        speedUnit: 'm/s'
-      },
-      data: this.wind_latest,
-      maxVelocity: 10,
-    });
-    return wind_overlay;
-  }
 
   //This funciton adds circle markers that represents the sensors
   addMarker(sData){
@@ -170,17 +152,44 @@ export class MapComponent implements OnInit{
     console.log("click once");
   }
 
-  //component initialize function
-  async ngOnInit(){
-    await this.sensorDataService.getWindData("http://imd.utdallas.edu:3000/data/latest").subscribe(
+  calculateWindOverlay(data){
+    return L.velocityLayer({
+      displayValues: true,
+      displayOptions: {
+        velocityType: 'GBR Wind',
+        position: 'topleft',//REQUIRED !
+        emptyString: 'No velocity data', //REQUIRED !
+        angleConvention: 'bearingCW',
+        displayPosition: 'topleft',
+        displayEmptyString: 'No velocity data',
+        speedUnit: 'm/s'
+      },
+      data,
+      maxVelocity: 10,
+    });
+  }
+
+  refreshWindOverlayData(){
+    this.sensorDataService.getWindData("http://imd.utdallas.edu:3000/data/latest").subscribe(
       data => {
-        this.wind_latest = data;
+        this.wind_overlay = this.calculateWindOverlay(data);
+        this.refreshLayersControl();
       },
       error => {
         console.error('There was an error!', error)
-        return [];
+        this.wind_overlay = this.calculateWindOverlay([]);
+        this.refreshLayersControl();
       }
     )
+  }
+
+  //component initialize function
+  async ngOnInit(){
+    this.refreshWindOverlayData();
+    setInterval(() => { 
+      this.refreshWindOverlayData();
+      console.log("Wind Overlay Data has been refreshed")
+  }, 3600000); //Refreshes every hour
   }
 
   ngAfterViewInit():void{
