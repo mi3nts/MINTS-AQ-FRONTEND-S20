@@ -33,13 +33,15 @@
         </style>
 </head>
 
-    <div id="container">
-    <div class="map" id="map1"
+<div id="container">
+    <app-side-bar></app-side-bar>
+    <div class="map" id="map1" *ngIf="this.wind_overlay"
     leaflet
     (leafletMapReady)="onMapReady($event)"
     [leafletOptions]="options"
     [leafletLayers]="markers"
-    [leafletLayersControl]="layersControl" markers="markers">
+    [leafletLayersControl]="layersControl" 
+    markers="markers">
     </div>
     
 </div>
