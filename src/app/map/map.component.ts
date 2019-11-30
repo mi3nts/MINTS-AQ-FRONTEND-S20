@@ -73,17 +73,23 @@ export class MapComponent implements OnInit{
   onMapReady(map:Map){
     //changes zoom control position
     map.addControl( L.control.zoom({position:'bottomright'}));
+
     //disables double click zoom
     map.doubleClickZoom.disable();
-    this.sensorDataService.getSensorIDs().subscribe((data: any)=>{
-      this.sensorIDs = data;
-   for(let i = 0; i < this.sensorIDs.sensors.length; i++)
-   {
-    this.sensorDataService.getSensorData(this.sensorIDs.sensors[i]).subscribe((data: any)=>{
-      this.sensors.push(data);
-      this.addMarker(data);
-    })  
-   }
+
+    //gets a list of sensor IDs to begin getting real time data
+    this.sensorDataService.getSensorIDs().subscribe((data1: any)=>{
+      this.sensorIDs = data1;
+
+      //loop through each sensor in the list
+      for(let i = 0; i < this.sensorIDs.sensors.length; i++)
+      {
+        //get real time sensor data and add a marker for each sensor in list
+        this.sensorDataService.getSensorData(this.sensorIDs.sensors[i]).subscribe((data2: any)=>{
+          this.sensors.push(data2);
+          this.addMarker(data2);
+        })  
+      }
    })
   }
 
@@ -100,25 +106,34 @@ export class MapComponent implements OnInit{
 
   //This funciton adds circle markers that represents the sensors
   addMarker(sData){
+    //String that gives Real Time information about a Sensor. This is used in the popup modal for the marker
+        
+    let PopupString = "<div style='font-size:14px'><div style='text-align:center; font-weight:bold'>" + "Current Sensor Data </div><br>";
+    if(!isNaN(parseFloat(sData.PM1)))
+      PopupString += "<li>PM1: " + parseFloat(sData.PM1).toFixed(2) + " Micrograms Per Cubic Meter</li><br>";
+    if(!isNaN(parseFloat(sData.PM2_5)))
+      PopupString += "<li>PM2_5: " + parseFloat(sData.PM2_5).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
+    if(!isNaN(parseFloat(sData.PM4)))
+      PopupString += "<li>PM4: " + parseFloat(sData.PM4).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
+    if(!isNaN(parseFloat(sData.PM10)))    
+      PopupString += "<li>PM10: " + parseFloat(sData.PM10).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
+    if(!isNaN(parseFloat(sData.Temperature)))
+      PopupString += "<li>Temperature: " + parseFloat(sData.Temperature).toFixed(2) + " Celcius</li><br>" ;
+    if(!isNaN(parseFloat(sData.Humidity)))
+      PopupString += "<li>Humidity: " + parseFloat(sData.Humidity).toFixed(2) + "%</li><br>" ;
+    if(!isNaN(parseFloat(sData.DewPoint)))
+      PopupString += "<li>DewPoint: " + parseFloat(sData.DewPoint).toFixed(2) + "%</li></div><br>" 
+    if(!isNaN(parseFloat(sData.dateTime)))
+      PopupString += "<div style='text-align:right; font-size: 11px'>Last Updated: " + sData.dateTime + " UTC</div>";
 
-        //String that gives Real Time information about a Sensor. This is used in the popup modal for the marker
-        let PopupString = "<div style='font-size:14px'><div style='text-align:center; font-weight:bold'>" + "Current Sensor Data </div><br>" + 
-        "<li>PM1: " + parseFloat(sData.PM1).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
-        "<li>PM2_5: " + parseFloat(sData.PM2_5).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
-        "<li>PM4: " + parseFloat(sData.PM4).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
-        "<li>PM10: " + parseFloat(sData.PM10).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" +
-        "<li>Temperature: " + parseFloat(sData.Temperature).toFixed(2) + " Celcius</li><br>" +
-        "<li>Humidity: " + parseFloat(sData.Humidity).toFixed(2) + "%</li><br>" +
-        "<li>DewPoint: " + parseFloat(sData.DewPoint).toFixed(2) + "%</li></div><br>" +
-        "<div style='text-align:right; font-size: 11px'>Last Updated: " + sData.dateTime + " UTC</div>";
-
-        let newMarker = circleMarker([parseFloat(sData.Latitude), parseFloat(sData.Longitude)], { 
-          radius: 10,
-          color: "#35b000",
-          fillColor: "#a1ff78",
-          fillOpacity: 1
-        })
-        //handles click events for single and double clicks
+    //create the marker
+    let newMarker = circleMarker([parseFloat(sData.Latitude), parseFloat(sData.Longitude)], { 
+      radius: 10,
+      color: "#35b000",
+      fillColor: "#a1ff78",
+      fillOpacity: 1
+    })
+        //handles click events for single clicks
         // .on("click", () => {
         //   this.ClickTimer = setTimeout(()=>{
         //     if (!this.ClickPrevent) {
@@ -127,12 +142,13 @@ export class MapComponent implements OnInit{
         //     this.ClickPrevent = false;
         //   }, this.ClickDelay);
         // })
-        .on("dblclick", () => {
-          clearTimeout(this.ClickTimer);
-          this.ClickPrevent = true;
-          this.doDoubleClickAction();
-        }).bindPopup(PopupString).openPopup();
-        this.markers.push(newMarker);
+        //handles click events for double click events
+    .on("dblclick", () => {
+      clearTimeout(this.ClickTimer);
+      this.ClickPrevent = true;
+      this.doDoubleClickAction();
+    }).bindPopup(PopupString).openPopup();
+    this.markers.push(newMarker);
   }
 
   //function that opens sidebar and populates it
