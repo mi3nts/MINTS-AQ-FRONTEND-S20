@@ -36,23 +36,29 @@ export class SensorDataService {
     let URL: string = "http://imd.utdallas.edu:3002/sensors";
     return this.http.get(URL);
    }
-   getSensorData(sensorID:string){
+
+   getRealTimeSensorData(sensorID:string){
     let URL: string = "http://imd.utdallas.edu:3002/latestData/?sensor=" + sensorID;
     return this.http.get(URL);
   }
 
-  getHistoricalSensorData(url):string{
-    let data;
-    let xhr = new XMLHttpRequest();
-     xhr.onreadystatechange = function() {
-       if (this.readyState === 4 && this.status === 200) {
-          data = this.responseText;}
-     }
-    xhr.open("GET", url, false);
-    // xhr.setRequestHeader("Accept", '');
-    xhr.send();
-    return data; 
+  getHistoricalSensorData(sensorID:string){
+    let URL: string = "http://imd.utdallas.edu:3002/aggregationData/?sensor=" + sensorID;
+    return this.http.get(URL);
   }
+
+  // getHistoricalSensorData(url):string{
+  //   let data;
+  //   let xhr = new XMLHttpRequest();
+  //    xhr.onreadystatechange = function() {
+  //      if (this.readyState === 4 && this.status === 200) {
+  //         data = this.responseText;}
+  //    }
+  //   xhr.open("GET", url, false);
+  //   // xhr.setRequestHeader("Accept", '');
+  //   xhr.send();
+  //   return data; 
+  // }
   
   getWindData(url:string){
     return this.http.get(url);

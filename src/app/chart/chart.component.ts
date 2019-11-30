@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SensorDataService } from '../sensor-data.service';
 import { ChartDataSets, ChartOptions, ChartData } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
+import {SideBarService} from '../side-bar.service';
 import 'hammerjs';
 import 'chartjs-plugin-zoom';
 @Component({
@@ -12,7 +13,7 @@ import 'chartjs-plugin-zoom';
 })
 export class ChartComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
-  constructor(private sensorDataService: SensorDataService) { }
+  constructor(private sensorDataService: SensorDataService, private sideBarService: SideBarService) { }
 
   //CHART JS OPTIONS CONFIGURATION FOR PM (Partical Matter) GRAPH
   public PMlineChartOptions: (ChartOptions & { annotation: any }) = {
@@ -21,7 +22,7 @@ export class ChartComponent implements OnInit {
       xAxes: [{
         scaleLabel:{
           display: true,
-          labelString:'Hours per Day'
+          labelString:'Hours per Day' 
         },
       }],
       yAxes: [
@@ -98,9 +99,9 @@ export class ChartComponent implements OnInit {
                },
    
               // Function called while the user is panning
-              onPan: function({chart}) { console.log(`I'm panning!!!`); },
+              onPan: function({chart}) { },
               // Function called once panning is completed
-              onPanComplete: function({chart}) { console.log(`I was panned!!!`); }
+              onPanComplete: function({chart}) { }
           },
    
           // Container for zoom options
@@ -147,9 +148,9 @@ export class ChartComponent implements OnInit {
               // speed:10,
               // limits:{max:5000, min:0.1},
               // Function called while the user is zooming
-              onZoom: function({chart}) { console.log(`I'm zooming!!!`); },
+              onZoom: function({chart}) {  },
               // Function called once zooming is completed
-              onZoomComplete: function({chart}) { console.log(`I was zoomed!!!`); }
+              onZoomComplete: function({chart}) { }
           }
       }
     }
@@ -216,11 +217,9 @@ export class ChartComponent implements OnInit {
     };
 
   chartHovered($event){
-    console.log("Chart Hovered!");
   }
 
   chartClicked($event){
-    console.log("Chart Clicked!");
   }
 
   //CHART JS OPTIONS
@@ -289,34 +288,45 @@ export class ChartComponent implements OnInit {
   TimeTicks:any[] = [];
 
   ngOnInit() {
-    let url3 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06305a12/2019/10/29/MINTS_001e06305a12_calibrated_UTC_2019_10_29.csv";
+  }
+
+  GetHistoricalData(sensorID:string){
+    // let url3 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06305a12/2019/10/29/MINTS_001e06305a12_calibrated_UTC_2019_10_29.csv";
     //GETS HISTORICAL DATA
-    this.HistoricalSensorData = JSON.parse(this.sensorDataService.csvJSON(this.sensorDataService.getHistoricalSensorData(url3)));
-    console.log(this.HistoricalSensorData);
-    //CALLS TO PARSE DATA
-    this.ParseHistoricalData();
+    //this.HistoricalSensorData = JSON.parse(this.sensorDataService.csvJSON(this.sensorDataService.getHistoricalSensorData(url3)));
+    this.sensorDataService.getHistoricalSensorData(sensorID).subscribe((data1: any)=>{
+      this.HistoricalSensorData = data1;
+      console.log(this.HistoricalSensorData);
+        //CALLS TO PARSE DATA
+      this.ParseHistoricalData(data1);
+    })
   }
   //PARSES HISTORICAL DATA AND SAVES IT
-  ParseHistoricalData(){
+  ParseHistoricalData(HistSensorData){
     let PM2_5data: Number[] = [];
     let PM1data: Number[] = [];
     let PM4data: Number[] = [];
     let PM10data: Number[] = [];
     let TimeData: Date[] = [];
     let timeTicks: any[] = [];
-    for(let i=0; i < this.HistoricalSensorData.length; i++ )
+    console.log(this.HistoricalSensorData.entries);
+    for(let i=0; i < this.HistoricalSensorData.entries.length; i++ )
     {
-      PM2_5data.push(parseFloat(this.HistoricalSensorData[i]["PM2_5"]));
-      PM1data.push(parseFloat(this.HistoricalSensorData[i]["PM1"]));
-      PM4data.push(parseFloat(this.HistoricalSensorData[i]["PM4"]));
-      PM10data.push(parseFloat(this.HistoricalSensorData[i]["PM10"]));
-      TimeData.push(new Date(this.HistoricalSensorData[i]["dateTime"]));
-      timeTicks.push(TimeData[i].toLocaleString());
+      console.log(HistSensorData.entries[0].result[0].PM2_5);
+      // console.log((HistSensorData.entries[i].result));
+      if(typeof HistSensorData.entries[i].result[0] !== "undefined"){
+        PM2_5data.push(parseFloat(HistSensorData.entries[i].result[0].PM2_5));
+        PM1data.push(parseFloat(HistSensorData.entries[i].result[0].PM1));
+        PM4data.push(parseFloat(HistSensorData.entries[i].result[0].PM4));
+        PM10data.push(parseFloat(HistSensorData.entries[i].result[0].PM10));
+      }
+      // TimeData.push(new Date(this.HistoricalSensorData[i]["dateTime"]));
+      // timeTicks.push(TimeData[i].toLocaleString());
     }
-    this.LatestTimeStamp = this.HistoricalSensorData[0]["dateTime"];
-
-    console.log(this.LatestTimeStamp);
-    console.log(timeTicks);
+    // this.LatestTimeStamp = this.HistoricalSensorData[0]["dateTime"];
+    console.log(PM2_5data);
+    // console.log(this.LatestTimeStamp);
+    // console.log(timeTicks);
 
     //CREATES DATASETS TO UPDATE CHART
     this.InitializeGraphs(PM2_5data, PM1data, PM4data, PM10data, TimeData, timeTicks);
@@ -336,6 +346,29 @@ export class ChartComponent implements OnInit {
     // this.TimeTicks = timeTicks;
     // this.lineChartLabels = timeTicks;
   }
+
+  gotHistoricalData:boolean = false;
+  resetHistoricalData:boolean = false;
+  ngAfterViewChecked(){
+    if(!this.gotHistoricalData){
+      if(document.getElementById("sDataDetails").style.display === "block"){
+        let sensorID = this.sideBarService.getSensorID();
+        if(sensorID !== "")
+        {
+          this.gotHistoricalData = true;
+          this.GetHistoricalData(sensorID);
+        }
+      }
+    }
+    else{
+      if(document.getElementById("sDataDetails").style.display === "none")
+      {
+        this.gotHistoricalData = false;
+        this.resetHistoricalData = false;
+      }
+    }
+  }
+
 
   //CHART CONFIGS FOR OTHER CHARTS 
 

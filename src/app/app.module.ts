@@ -16,6 +16,7 @@ import { ChartsModule } from 'ng2-charts';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { HeaderBarComponent } from './header-bar/header-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Ng2LoadingSpinnerModule } from 'ng2-loading-spinner';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatSidenavModule
+    MatSidenavModule,
+    Ng2LoadingSpinnerModule.forRoot({
+      backdropColor  : 'rgba(255, 255, 255)',
+      spinnerColor   : '#673ab7',
+      spinnerSize    : 'xl',
+      animationType  : 'scalingBars'
+    })
   ],
   bootstrap: [AppComponent]
 
