@@ -126,11 +126,17 @@ export class MapComponent implements OnInit{
     if(!isNaN(parseFloat(sData.dateTime)))
       PopupString += "<div style='text-align:right; font-size: 11px'>Last Updated: " + sData.dateTime + " UTC</div>";
 
+    //get colors based on PM 2.5 values
+    let outlineColor = this.setColor(parseFloat(sData.PM2_5));
+    let fillColor = this.setFillColor(parseFloat(sData.PM2_5));
+    console.log(outlineColor);
+    console.log(fillColor);
+
     //create the marker
     let newMarker = circleMarker([parseFloat(sData.Latitude), parseFloat(sData.Longitude)], { 
       radius: 10,
-      color: "#35b000",
-      fillColor: "#a1ff78",
+      color: outlineColor,
+      fillColor: fillColor,
       fillOpacity: 1
     })
         //handles click events for single clicks
@@ -219,4 +225,89 @@ export class MapComponent implements OnInit{
 
   ngAfterViewInit():void{
   }
+
+    //function for getting the outline color of circle markers
+  setColor(PM:number):string{
+      console.log(PM);
+      if(PM >= 11.00)return "#ed0000";
+      else if(PM >= 8.00)return "#ed9200";
+      else if(PM >= 5.00)return "#fffb00";
+      else if(PM >= 3.00)return "#35b000";
+      else if(PM >= 0.00)return "#3d88ff";
+    }
+  
+    //function for getting the fill color of circle markers
+  setFillColor(PM:number):string{
+      console.log(PM);
+  
+      if(PM >= 11.00){
+        if(PM >= 11.90)return "#ed0000";
+        else if(PM >= 11.80)return "#ff1919";
+        else if(PM >= 11.70)return "#ff2b2b";
+        else if(PM >= 11.60)return "#ff3838";
+        else if(PM >= 11.50)return "#ff4545";
+        else if(PM >= 11.40)return "#ff4d4d";
+        else if(PM >= 11.30)return "#ff6363";
+        else if(PM >= 11.20)return "#ff6b6b";
+        else if(PM >= 11.10)return "#ff8585";
+        else if(PM >= 11.00)return "#ff9696";
+      }
+  
+      else if(PM >= 8.00){      
+        if(PM >= 8.90)return "#ed9200";
+        else if(PM >= 8.80)return "#fca314";
+        else if(PM >= 8.70)return "#faad32";
+        else if(PM >= 8.60)return "#ffb43d";
+        else if(PM >= 8.50)return "#ffba4d";
+        else if(PM >= 8.40)return "#ffc261";
+        else if(PM >= 8.30)return "#ffc870";
+        else if(PM >= 8.20)return "#ffcf82";
+        else if(PM >= 8.10)return "#fcd28d";
+        else if(PM >= 8.00)return "#ffda9e";
+      }
+  
+      else if(PM >= 5.00){
+        if(PM >= 5.90)return "#fffb00";
+        else if(PM >= 5.80)return "#fffb19";
+        else if(PM >= 5.70)return "#fffb30";
+        else if(PM >= 5.60)return "#fffb3b";
+        else if(PM >= 5.50)return "#fffb4d";
+        else if(PM >= 5.40)return "#fffb57";
+        else if(PM >= 5.30)return "#fffb61";
+        else if(PM >= 5.20)return "#fffb69";
+        else if(PM >= 5.10)return "#fffc80";
+        else if(PM >= 5.00)return "#fffd96";
+      }
+  
+      else if(PM >= 3.00 ){
+        if(PM >= 3.90)return "#35b000";
+        else if(PM >= 3.80)return "#48bf15";
+        else if(PM >= 3.70)return "#52c91e";
+        else if(PM >= 3.60)return "#52c91e";
+        else if(PM >= 3.50)return "#69e334";
+        else if(PM >= 3.40)return "#6eeb38";
+        else if(PM >= 3.30)return "#79ed47";
+        else if(PM >= 3.20)return "#83f252";
+        else if(PM >= 3.10)return "#8eff5c";
+        else if(PM >= 3.00)return "#a5ff7d";
+      }
+  
+      else if(PM >= 0.00){
+        if(PM >= 2.90)return "#3d88ff";
+        else if(PM >= 2.70)return "#4a90ff";
+        else if(PM >= 2.50)return "#5c9bff";
+        else if(PM >= 2.30)return "#6ea6ff";
+        else if(PM >= 2.10)return "#4288ff";
+        else if(PM >= 1.90)return "#5292ff";
+        else if(PM >= 1.70)return "#5d98fc";
+        else if(PM >= 1.50)return "#6ea4ff";
+        else if(PM >= 1.30)return "#7aacff";
+        else if(PM >= 1.00)return "#96beff";
+        else if(PM >= 0.75)return "#a8c9ff";
+        else if(PM >= 0.50)return "#bad4ff";
+        else if(PM >= 0.25)return "#c9deff";
+        else if(PM >= 0.00)return "#dbe9ff";
+        
+      }
+    }
 }

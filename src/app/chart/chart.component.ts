@@ -33,7 +33,7 @@ export class ChartComponent implements OnInit {
           },
           id: 'y-axis-0',
           position: 'left',
-          ticks:{min:0, max:35}
+          ticks:{min:0, max:80}
         }
       ]
     },
@@ -167,16 +167,16 @@ export class ChartComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
     { // blue
-      backgroundColor: '#ff5757',
-      borderColor: '#ff5757',
+      backgroundColor: '#fc6d6d',
+      borderColor: '#fc6d6d',
       pointBackgroundColor: 'rgba(77,83,96,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(77,83,96,1)'
     },
     { // red
-      backgroundColor: '#ff3636',
-      borderColor: '#ff3636',
+      backgroundColor: '#ff5959',
+      borderColor: '#ff5959',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
@@ -302,7 +302,6 @@ export class ChartComponent implements OnInit {
   }
   //PARSES HISTORICAL DATA AND SAVES IT
   ParseHistoricalData(HistSensorData){
-    console.log(HistSensorData);
     let PM2_5data: Number[] = [];
     let PM1data: Number[] = [];
     let PM4data: Number[] = [];
@@ -322,7 +321,6 @@ export class ChartComponent implements OnInit {
       // timeTicks.push(TimeData[i].toLocaleString());
     }
     this.LatestTimeStamp = this.HistoricalSensorData.entries[this.HistoricalSensorData.entries.length - 1].timestamp;
-    console.log(this.HistoricalSensorData.entries);
 
     //CREATES DATASETS TO UPDATE CHART
     this.InitializeGraphs(PM2_5data, PM1data, PM4data, PM10data, TimeData, timeTicks);
