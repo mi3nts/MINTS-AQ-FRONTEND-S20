@@ -351,14 +351,16 @@ export class ChartComponent implements OnInit {
     this.PMchartData[3].data = [];
   }
 
+  sensorID: string;
+
   ngAfterViewChecked(){
     if(!this.gotHistoricalData){
       if(document.getElementById("sDataDetails").style.display === "block"){
-        let sensorID = this.sideBarService.getSensorID();
-        if(sensorID !== "")
+        this.sensorID = this.sideBarService.getSensorID();
+        if(this.sensorID !== "")
         {
           this.gotHistoricalData = true;
-          this.GetHistoricalData(sensorID);
+          this.GetHistoricalData(this.sensorID);
         }
       }
     }
@@ -371,19 +373,20 @@ export class ChartComponent implements OnInit {
       }
     }
 
-    if(document.getElementById("sDataDetails").style.display === "block"){
-      let sensorID = this.sideBarService.getSensorID();
-      let pastSensorID = sensorID;
-      if(sensorID !== "" )
-      {
-        if(sensorID !== pastSensorID)
-        {
-          this.ResetChartData();
-          this.gotHistoricalData = true;
-          this.GetHistoricalData(sensorID);
-        }
-      }
-    }
+    // if(document.getElementById("sDataDetails").style.display === "block"){
+    //   if(){
+    //     let sensorID = this.sideBarService.getSensorID();
+    //     if(sensorID !== "" )
+    //     {
+    //       if(sensorID !== this.sensorID)
+    //       {
+    //         this.ResetChartData();
+    //         this.gotHistoricalData = true;
+    //         this.GetHistoricalData(sensorID);
+    //       }
+        
+    //     }
+    //   }
   }
 
   //CHART CONFIGS FOR OTHER CHARTS 

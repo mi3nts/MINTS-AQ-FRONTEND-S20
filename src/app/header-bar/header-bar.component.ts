@@ -12,4 +12,11 @@ export class HeaderBarComponent implements OnInit {
   ngOnInit() {
   }
 
+  OpenAboutModal(){
+    console.log("ABOUT CALLED");
+  }
+
+  OpenHowToModal(){
+    console.log("OpenHowTo CALLED");
+  }
 }
