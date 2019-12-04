@@ -10,16 +10,24 @@
     </button></span> -->
 </mat-toolbar>
 
-<div id="AboutInfo">
+<div class="AboutModal" id="AboutInfo">
   <button class="SideBarButton" id="CloseAboutButton" (click)="CloseSideBar($event)">✖</button>
-  <p>
-
-  </p>
+  <div class="InfoModalContents">
+    <h1>About</h1>
+      <p>
+        
+      </p>
+  </div>
 </div>
 
-<div id="HowToInfo">
+<div class="HowToModal" id="HowToInfo">
   <button class="SideBarButton" id="CloseHowToButton" (click)="CloseSideBar($event)">✖</button>
-  <p>
-    
-  </p>
+  <div  class="InfoModalContents">
+    <h1 style="text-align:center">Instructions</h1> <br>
+    <ul>
+      <li>Single Click a Map Marker to view the Real Time Sensor Information</li><br>
+      <li>Double Click a Map Marker to view the Historical Time Sensor Information</li><br>
+      <li>Use The Top Right Button to change maps and enable the wind overlay</li><br>
+    </ul>
+  </div>
 </div>

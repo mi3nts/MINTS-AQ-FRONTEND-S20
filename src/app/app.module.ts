@@ -7,7 +7,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-import {MatSidenavModule} from '@angular/material/sidenav'
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -36,6 +37,7 @@ import { Ng2LoadingSpinnerModule } from 'ng2-loading-spinner';
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
+    MatDialogModule,
     Ng2LoadingSpinnerModule.forRoot({
       backdropColor  : 'rgba(255, 255, 255)',
       spinnerColor   : '#673ab7',

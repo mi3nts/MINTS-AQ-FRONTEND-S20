@@ -22,6 +22,7 @@ export class HeaderBarComponent implements OnInit {
 
   CloseSideBar($event)
   {
-    document.getElementById("sDataDetails").style.display="none";
+    document.getElementById("AboutInfo").style.display="none";
+    document.getElementById("HowToInfo").style.display="none";
   }
 }

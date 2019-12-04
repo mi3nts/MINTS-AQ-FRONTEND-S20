@@ -22,7 +22,7 @@
     flex: 1 1 auto;
   }
 
-  .SideBarButton {
+.SideBarButton {
     background-color: lightgrey;
     border: none;
     color: black;
@@ -36,4 +36,39 @@
     height: 25px;
     position: absolute;
     right: 0px;
+}
+
+.AboutModal{
+    display:none;
+    width: 1200px;
+    height: 600px;
+    position: absolute;
+    left: 50%;
+    top: 50%; 
+    margin-left: -600px;
+    margin-top: -300px;
+    z-index:4;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.HowToModal{
+    display:none;
+    width: 600px;
+    height: 300px;
+    position: absolute;
+    left: 50%;
+    top: 50%; 
+    margin-left: -300px;
+    margin-top: -150px;
+    z-index:4;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.InfoModalContents{
+    padding:20px;
+    overflow-y:auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
 }
