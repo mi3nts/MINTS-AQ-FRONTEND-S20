@@ -370,8 +370,21 @@ export class ChartComponent implements OnInit {
         this.resetHistoricalData = true;
       }
     }
-  }
 
+    if(document.getElementById("sDataDetails").style.display === "block"){
+      let sensorID = this.sideBarService.getSensorID();
+      let pastSensorID = sensorID;
+      if(sensorID !== "" )
+      {
+        if(sensorID !== pastSensorID)
+        {
+          this.ResetChartData();
+          this.gotHistoricalData = true;
+          this.GetHistoricalData(sensorID);
+        }
+      }
+    }
+  }
 
   //CHART CONFIGS FOR OTHER CHARTS 
 

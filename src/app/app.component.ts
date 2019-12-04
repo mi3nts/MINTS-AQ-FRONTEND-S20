@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  Title = "Map get started";
-}
+  public constructor(private titleService: Title ) { }
+  public setTitle() {
+    this.titleService.setTitle( "AQ Viz" );
+  }
+
+  ngOnInit()
+  {
+    this.setTitle();
+  }
+ }
