@@ -92,6 +92,22 @@ export class MapComponent implements OnInit{
         })  
       }
    })
+
+   //Sets boundaries for the map
+    var southWest = L.latLng(-89.98155760646617, -180),
+    northEast = L.latLng(89.99346179538875, 180);
+    var bounds = L.latLngBounds(southWest, northEast);
+
+    map.setMaxBounds(bounds);
+    map.on('drag', function() {
+      map.panInsideBounds(bounds, { animate: false });
+    });
+    //Sets max zoom for the map
+    setInterval(function(){
+      if(map.getZoom() < 3)
+      map.setZoom(3);
+    }, 1);
+
   }
 
   //leaflet map controls for map layers
