@@ -13,10 +13,15 @@ export class HeaderBarComponent implements OnInit {
   }
 
   OpenAboutModal(){
-    console.log("ABOUT CALLED");
+    document.getElementById("AboutInfo").style.display="block";
   }
 
   OpenHowToModal(){
-    console.log("OpenHowTo CALLED");
+    document.getElementById("HowToInfo").style.display="block";
+  }
+
+  CloseSideBar($event)
+  {
+    document.getElementById("sDataDetails").style.display="none";
   }
 }
