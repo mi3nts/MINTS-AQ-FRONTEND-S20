@@ -145,8 +145,8 @@ export class MapComponent implements OnInit{
     //get colors based on PM 2.5 values
     let outlineColor = this.setColor(parseFloat(sData.PM2_5));
     let fillColor = this.setFillColor(parseFloat(sData.PM2_5));
-    console.log(outlineColor);
-    console.log(fillColor);
+    // console.log(outlineColor);
+    // console.log(fillColor);
 
     //create the marker
     let newMarker = circleMarker([parseFloat(sData.Latitude), parseFloat(sData.Longitude)], { 
@@ -174,7 +174,7 @@ export class MapComponent implements OnInit{
   }
 
   OpenSideBar(){
-    console.log("OpenSideBar Called!");
+    // console.log("OpenSideBar Called!");
     // if(document.getElementById("sDataDetails").style.display === "none")
     document.getElementById("sDataDetails").style.display="block";
   }
@@ -182,14 +182,14 @@ export class MapComponent implements OnInit{
   //function for double click action
   doDoubleClickAction(sensorID){
     this.OpenSideBar();
-    console.log(sensorID);
+    // console.log(sensorID);
     this.sideBarService.setSensorID(sensorID);
 
   }
 
   //function for single click action
   doSingleClickAction(this, sData){
-    console.log("click once");
+    // console.log("click once");
   }
 
   calculateWindOverlay(data){
@@ -244,7 +244,7 @@ export class MapComponent implements OnInit{
 
     //function for getting the outline color of circle markers
   setColor(PM:number):string{
-      console.log(PM);
+      // console.log(PM);
       if(PM >= 11.00)return "#ed0000";
       else if(PM >= 8.00)return "#ed9200";
       else if(PM >= 5.00)return "#fffb00";
@@ -254,7 +254,7 @@ export class MapComponent implements OnInit{
   
     //function for getting the fill color of circle markers
   setFillColor(PM:number):string{
-      console.log(PM);
+      // console.log(PM);
   
       if(PM >= 11.00){
         if(PM >= 11.90)return "#ed0000";
