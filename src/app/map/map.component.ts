@@ -77,11 +77,13 @@ export class MapComponent implements OnInit{
       document.getElementById("sDataDetails").style.display="none";
       document.getElementById("AboutInfo").style.display="none";
       document.getElementById("HowToInfo").style.display="none";
+      document.getElementById("PMInfo").style.display="none";
     });
     map.on('drag', function(){
       document.getElementById("sDataDetails").style.display="none";
       document.getElementById("AboutInfo").style.display="none";
       document.getElementById("HowToInfo").style.display="none";
+      document.getElementById("PMInfo").style.display="none";
     });
 
     //gets a list of sensor IDs to begin getting real time data
@@ -134,7 +136,7 @@ export class MapComponent implements OnInit{
     if(!isNaN(parseFloat(sData.PM1)))
       PopupString += "<li>PM1: " + parseFloat(sData.PM1).toFixed(2) + " Micrograms Per Cubic Meter</li><br>";
     if(!isNaN(parseFloat(sData.PM2_5)))
-      PopupString += "<li>PM2_5: " + parseFloat(sData.PM2_5).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
+      PopupString += "<li>PM2.5: " + parseFloat(sData.PM2_5).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
     if(!isNaN(parseFloat(sData.PM4)))
       PopupString += "<li>PM4: " + parseFloat(sData.PM4).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
     if(!isNaN(parseFloat(sData.PM10)))    

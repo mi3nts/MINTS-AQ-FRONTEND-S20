@@ -13,18 +13,27 @@ export class HeaderBarComponent implements OnInit {
   }
 
   OpenAboutModal(){
-    document.getElementById("AboutInfo").style.display="block";
     document.getElementById("HowToInfo").style.display="none";
+    document.getElementById("PMInfo").style.display="none";
+    document.getElementById("AboutInfo").style.display="block";
   }
 
   OpenHowToModal(){
     document.getElementById("AboutInfo").style.display="none";
+    document.getElementById("PMInfo").style.display="none";
     document.getElementById("HowToInfo").style.display="block";
   }
 
-  CloseSideBar($event)
+  OpenPMModal(){
+    document.getElementById("PMInfo").style.display="block";
+    document.getElementById("AboutInfo").style.display="none";
+    document.getElementById("HowToInfo").style.display="none";
+  }
+
+  CloseModal($event)
   {
     document.getElementById("AboutInfo").style.display="none";
     document.getElementById("HowToInfo").style.display="none";
+    document.getElementById("PMInfo").style.display = "none";
   }
 }

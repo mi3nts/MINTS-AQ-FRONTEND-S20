@@ -17,6 +17,8 @@
     overflow-y:auto;
     overflow: -moz-scrollbars-none;
     -ms-overflow-style: none;
+    animation-name: dialogopen;
+    animation-duration: 0.5s;
 }
 
 .sidebar::-webkit-scrollbar { width: 0 !important }
@@ -41,4 +43,14 @@
     height: 25px;
     position: absolute;
     right: 0px;
+}
+
+@keyframes dialogopen {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
 }

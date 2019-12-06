@@ -48,8 +48,10 @@
     margin-left: -600px;
     margin-top: -300px;
     z-index:4;
-    background-color: white;
+    background-color: #f5f5f5;
     border-radius: 5px;
+    animation-name: dialogopen;
+    animation-duration: 0.5s;
 }
 
 .HowToModal{
@@ -62,8 +64,10 @@
     margin-left: -300px;
     margin-top: -150px;
     z-index:4;
-    background-color: white;
+    background-color: #f5f5f5;
     border-radius: 5px;
+    animation-name: dialogopen;
+    animation-duration: 0.5s;
 }
 
 .InfoModalContents{
@@ -71,4 +75,14 @@
     overflow-y:auto;
     overflow: -moz-scrollbars-none;
     -ms-overflow-style: none;
+}
+
+@keyframes dialogopen {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
 }
