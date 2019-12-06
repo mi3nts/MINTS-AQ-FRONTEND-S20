@@ -41,12 +41,12 @@
 .AboutModal{
     display:none;
     width: 1200px;
-    height: 600px;
+    height: 400px;
     position: absolute;
     left: 50%;
     top: 50%; 
     margin-left: -600px;
-    margin-top: -300px;
+    margin-top: -200px;
     z-index:4;
     background-color: #f5f5f5;
     border-radius: 5px;
