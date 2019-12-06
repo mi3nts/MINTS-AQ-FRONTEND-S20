@@ -14,9 +14,11 @@ export class HeaderBarComponent implements OnInit {
 
   OpenAboutModal(){
     document.getElementById("AboutInfo").style.display="block";
+    document.getElementById("HowToInfo").style.display="none";
   }
 
   OpenHowToModal(){
+    document.getElementById("AboutInfo").style.display="none";
     document.getElementById("HowToInfo").style.display="block";
   }
 
