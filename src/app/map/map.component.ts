@@ -24,11 +24,6 @@ export class MapComponent implements OnInit{
   sensorIDs:any;
   //Layer array for circle markers
   markers: Layer[] = [];
-
-  //used for differentiating single and double clicks
-  ClickTimer: any = 0;
-  ClickDelay: number = 200;
-  ClickPrevent: Boolean = false;
   showSpinner: Boolean = true;
   //White street map
   streetMaps = tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -77,6 +72,17 @@ export class MapComponent implements OnInit{
 
     //disables double click zoom
     map.doubleClickZoom.disable();
+    
+    map.on('click', function(){
+      document.getElementById("sDataDetails").style.display="none";
+      document.getElementById("AboutInfo").style.display="none";
+      document.getElementById("HowToInfo").style.display="none";
+    });
+    map.on('drag', function(){
+      document.getElementById("sDataDetails").style.display="none";
+      document.getElementById("AboutInfo").style.display="none";
+      document.getElementById("HowToInfo").style.display="none";
+    });
 
     //gets a list of sensor IDs to begin getting real time data
     this.sensorDataService.getSensorIDs().subscribe((data1: any)=>{
@@ -91,7 +97,7 @@ export class MapComponent implements OnInit{
           this.addMarker(data2, this.sensorIDs.sensors[i]);
         })  
       }
-   })
+   });
 
    //Sets boundaries for the map
     var southWest = L.latLng(-89.98155760646617, -180),
@@ -166,17 +172,16 @@ export class MapComponent implements OnInit{
         // })
         //handles click events for double click events
     .on("dblclick", () => {
-      clearTimeout(this.ClickTimer);
-      this.ClickPrevent = true;
       this.doDoubleClickAction(sensorID);
     }).bindPopup(PopupString).openPopup();
     this.markers.push(newMarker);
   }
 
   OpenSideBar(){
-    // console.log("OpenSideBar Called!");
-    // if(document.getElementById("sDataDetails").style.display === "none")
-    document.getElementById("sDataDetails").style.display="block";
+    document.getElementById("sDataDetails").style.display="none";
+    setTimeout(() => {
+      document.getElementById("sDataDetails").style.display="block";
+    }, 1)
   }
 
   //function for double click action
@@ -235,7 +240,7 @@ export class MapComponent implements OnInit{
     this.refreshWindOverlayData();
     setInterval(() => { 
       this.refreshWindOverlayData();
-      console.log("Wind Overlay Data has been refreshed")
+      // console.log("Wind Overlay Data has been refreshed")
   }, 3600000); //Refreshes every hour
   }
 

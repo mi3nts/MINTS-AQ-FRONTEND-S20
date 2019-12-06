@@ -294,8 +294,10 @@ export class ChartComponent implements OnInit {
     // let url3 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06305a12/2019/10/29/MINTS_001e06305a12_calibrated_UTC_2019_10_29.csv";
     //GETS HISTORICAL DATA
     //this.HistoricalSensorData = JSON.parse(this.sensorDataService.csvJSON(this.sensorDataService.getHistoricalSensorData(url3)));
+    // console.log(sensorID);
     this.sensorDataService.getHistoricalSensorData(sensorID).subscribe((data1: any)=>{
       this.HistoricalSensorData = data1;
+      // console.log(data1);
         //CALLS TO PARSE DATA
       this.ParseHistoricalData(data1);
     })
