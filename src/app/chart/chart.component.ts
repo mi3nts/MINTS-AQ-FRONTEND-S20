@@ -22,7 +22,7 @@ export class ChartComponent implements OnInit {
       xAxes: [{
         scaleLabel:{
           display: true,
-          labelString:'Hours per Day' 
+          labelString:'24 Hour Period' 
         },
       }],
       yAxes: [
