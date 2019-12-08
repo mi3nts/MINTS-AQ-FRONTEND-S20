@@ -33,7 +33,7 @@ export class ChartComponent implements OnInit {
           },
           id: 'y-axis-0',
           position: 'left',
-          ticks:{min:0, max:80}
+          ticks:{min:0, max:120}
         }
       ]
     },
@@ -290,11 +290,8 @@ export class ChartComponent implements OnInit {
   ngOnInit() {
   }
 
+  //GETS HISTORICAL DATA FROM THE DATABASE
   GetHistoricalData(sensorID:string){
-    // let url3 = "https://cors-anywhere.herokuapp.com/http://mintsdata.utdallas.edu:4200/api/001e06305a12/2019/10/29/MINTS_001e06305a12_calibrated_UTC_2019_10_29.csv";
-    //GETS HISTORICAL DATA
-    //this.HistoricalSensorData = JSON.parse(this.sensorDataService.csvJSON(this.sensorDataService.getHistoricalSensorData(url3)));
-    // console.log(sensorID);
     this.sensorDataService.getHistoricalSensorData(sensorID).subscribe((data1: any)=>{
       this.HistoricalSensorData = data1;
       // console.log(data1);
@@ -310,6 +307,8 @@ export class ChartComponent implements OnInit {
     let PM10data: Number[] = [];
     let TimeData: Date[] = [];
     let timeTicks: any[] = [];   
+
+    //PARSE JSON TO GET VALUES FROM PM Data
     for(let i=0; i < HistSensorData.entries.length; i++ )
     {
       // console.log((HistSensorData.entries[i].result));
@@ -346,6 +345,7 @@ export class ChartComponent implements OnInit {
   gotHistoricalData:boolean = false;
   resetHistoricalData:boolean = false;
 
+  //RESETS PMCHART DATA STRUCTURES
   ResetChartData(){
     this.PMchartData[0].data = [];
     this.PMchartData[1].data = [];
@@ -355,18 +355,26 @@ export class ChartComponent implements OnInit {
 
   sensorID: string;
 
+  //THIS FUNCTIONALITY IS FOR GETTING THE SENSOR ID FROM THE MAP AND PASSING IT INTO THE SIDEBAR.
+  //FROM THERE, THE SENSORID IS GIVEN TO THE DATABASE TO FILL THE CHART WITH HISTORICAL DATA
   ngAfterViewChecked(){
+    //CHECK IF HISTORICAL DATA HAS BEEN RETRIEVED
     if(!this.gotHistoricalData){
+      //IF THE SIDEBAR IS OPEN, RUN THIS CODE
       if(document.getElementById("sDataDetails").style.display === "block"){
+        //GET THE SENSOR ID FROM THE SERVICE
         this.sensorID = this.sideBarService.getSensorID();
+        //CHECK TO SEE IF ITS NOT NULL
         if(this.sensorID !== "")
         {
+          //GET THE SENSOR ID
           this.gotHistoricalData = true;
           this.GetHistoricalData(this.sensorID);
         }
       }
     }
     else{
+      //IF THE SIDEBAR IS CLOSED, THEN RESET THE PM DATA AND WAIT TO RETRIEVE SENSOR ID
       if(document.getElementById("sDataDetails").style.display === "none")
       {
         this.gotHistoricalData = false;

@@ -73,17 +73,21 @@ export class MapComponent implements OnInit{
     //disables double click zoom
     map.doubleClickZoom.disable();
     
+    //IF MAP IS CLICKED CLOSE ALL ON SCREEN MODALS
     map.on('click', function(){
       document.getElementById("sDataDetails").style.display="none";
       document.getElementById("AboutInfo").style.display="none";
       document.getElementById("HowToInfo").style.display="none";
       document.getElementById("PMInfo").style.display="none";
+      document.getElementById("CSScaleModal").style.display="none";
     });
+    //IF MAP IS DRAGGED CLOSE ALL ON SCREEN MODALS
     map.on('drag', function(){
       document.getElementById("sDataDetails").style.display="none";
       document.getElementById("AboutInfo").style.display="none";
       document.getElementById("HowToInfo").style.display="none";
       document.getElementById("PMInfo").style.display="none";
+      document.getElementById("CSScaleModal").style.display="none";
     });
 
     //gets a list of sensor IDs to begin getting real time data
@@ -179,6 +183,7 @@ export class MapComponent implements OnInit{
     this.markers.push(newMarker);
   }
 
+  //OPENS SIDEBAR 
   OpenSideBar(){
     document.getElementById("sDataDetails").style.display="none";
     setTimeout(() => {
@@ -190,6 +195,7 @@ export class MapComponent implements OnInit{
   doDoubleClickAction(sensorID){
     this.OpenSideBar();
     // console.log(sensorID);
+    //PASS SENSORID TO CHART BY USING SIDEBAR SERVICE
     this.sideBarService.setSensorID(sensorID);
 
   }
@@ -247,6 +253,21 @@ export class MapComponent implements OnInit{
   }
 
   ngAfterViewInit():void{
+  }
+
+  //USED FOR OPENING AND CLOSING COLOR SCALE MODALS
+
+  OpenColorScaleModal(){
+    document.getElementById("CSScaleModal").style.display="block";
+    document.getElementById("PMInfo").style.display="none";
+    document.getElementById("AboutInfo").style.display="none";
+    document.getElementById("HowToInfo").style.display="none";
+  }
+  CloseModal($event){
+    document.getElementById("CSScaleModal").style.display="none";
+    document.getElementById("AboutInfo").style.display="none";
+    document.getElementById("HowToInfo").style.display="none";
+    document.getElementById("PMInfo").style.display = "none";
   }
 
     //function for getting the outline color of circle markers

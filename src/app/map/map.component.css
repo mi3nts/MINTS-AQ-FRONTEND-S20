@@ -20,4 +20,65 @@
 	z-index:5;
 }
 
+.ColorScalePicture{
+	z-index:1;
+	position:absolute;
+	bottom:15px;
+	left:15px;
+}
 
+.ColorScaleButton{
+	z-index:1;
+	position:absolute;
+	bottom:15px;
+	left:420px;
+}
+
+.ColorScaleModal{
+    display:none;
+    width: 400px;
+    height: 225px;
+    position: absolute;
+    left: 50%;
+    top: 50%; 
+    margin-left: -200px;
+    margin-top: -112.5px;
+    z-index:4;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    animation-name: dialogopen;
+    animation-duration: 0.5s;
+}
+
+.InfoModalContents{
+    padding:20px;
+    overflow-y:auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+}
+
+.SideBarButton {
+    background-color: lightgrey;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 4px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 0px;
+}
+
+@keyframes dialogopen {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}

@@ -12,19 +12,24 @@ export class HeaderBarComponent implements OnInit {
   ngOnInit() {
   }
 
+  //FUNCTIONS FOR OPENING AND CLOSING HEADER MODALS 
+  
   OpenAboutModal(){
+    document.getElementById("CSScaleModal").style.display="none";
     document.getElementById("HowToInfo").style.display="none";
     document.getElementById("PMInfo").style.display="none";
     document.getElementById("AboutInfo").style.display="block";
   }
 
   OpenHowToModal(){
+    document.getElementById("CSScaleModal").style.display="none";
     document.getElementById("AboutInfo").style.display="none";
     document.getElementById("PMInfo").style.display="none";
     document.getElementById("HowToInfo").style.display="block";
   }
 
   OpenPMModal(){
+    document.getElementById("CSScaleModal").style.display="none";
     document.getElementById("PMInfo").style.display="block";
     document.getElementById("AboutInfo").style.display="none";
     document.getElementById("HowToInfo").style.display="none";
@@ -32,6 +37,7 @@ export class HeaderBarComponent implements OnInit {
 
   CloseModal($event)
   {
+    document.getElementById("CSScaleModal").style.display="none";
     document.getElementById("AboutInfo").style.display="none";
     document.getElementById("HowToInfo").style.display="none";
     document.getElementById("PMInfo").style.display = "none";

@@ -4,11 +4,15 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
+
+//THIS SERVICE GETS SENSOR DATA FROM THE DATABASE AND RETURNS IT AN ANGULAR COMPONENT
 export class SensorDataService {
   latestData: any
 
   constructor(private http: HttpClient) { }
 
+  //NO LONGER IS BEING USED
+  //HOWEVER IT IS USED FOR CONVERTING CSV TO JSON
   csvJSON(csv):string{
 
     var lines=csv.split("\n");
@@ -32,12 +36,13 @@ export class SensorDataService {
     //return result; //JavaScript object
     return JSON.stringify(result); //JSON
   }
-   getSensorIDs(){
+
+  getSensorIDs(){
     let URL: string = "http://imd.utdallas.edu:3002/sensors";
     return this.http.get(URL);
-   }
+  }
 
-   getRealTimeSensorData(sensorID:string){
+  getRealTimeSensorData(sensorID:string){
     let URL: string = "http://imd.utdallas.edu:3002/latestData/?sensor=" + sensorID;
     return this.http.get(URL);
   }

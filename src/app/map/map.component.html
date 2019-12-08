@@ -3,34 +3,7 @@
         <script src="js/leaflet/leaflet.js"></script>  
         <script src="js/main.js"></script>
         <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
-
-        <style>
-            img{
-                height: auto;
-                width: 2%;
-                
-                position:absolute;
-                z-index:3;
-                left:85px;
-
-                transform: rotate(10deg);
-                padding: 8px;
-            }
-
-            h1{
-
-                position:absolute;
-                z-index:3;
-                vertical-align: baseline;
-
-                letter-spacing: 1px;
-                margin:0px;
-                
-                padding: 5px;
-                
-                size: 2.5em;
-            }
-        </style>
+        <a href="https://icons8.com/icon/85894/question-mark">Question Mark icon by Icons8</a>
 </head>
 
 
@@ -45,10 +18,25 @@
     [leafletLayersControl]="layersControl" 
     markers="markers">
     </div>
+    <img src="/assets/colorscale.png" alt="color scale" height="69.3" width="408.45" class="ColorScalePicture">
+    <button mat-mini-fab aria-label="question-mark" class="ColorScaleButton" (click)="OpenColorScaleModal()">
+        <img src="https://img.icons8.com/material/24/000000/question-mark--v1.png">
+      </button>
     <app-side-bar></app-side-bar>
     
     <div class="loading" [ng2-loading]="showSpinner"></div>
 </div>
-<div id="streetMaps">
-    
-</div>
+
+<div id="streetMaps"></div>
+
+<div class="ColorScaleModal" id="CSScaleModal">
+    <button class="SideBarButton" id="CloseHowToButton" (click)="CloseModal($event)">✖</button>
+    <div  class="InfoModalContents">
+      <h1 style="text-align:center">Color Scale Information</h1>
+      <hr style="width:250px;display:block;">
+      <p>The color scale is based off the real time sensor values for PM2.5. 
+         Higher PM2.5 levels results in worse air quality.
+         The colors denote how much PM2.5 is currently in the air. </p>
+      <!-- <p style="color: red;text-align:center">When viewing historical time sensor information, close the sidebar before selecting a new sensor.</p> -->
+    </div>
+  </div>
