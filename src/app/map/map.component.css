@@ -20,6 +20,26 @@
 	z-index:5;
 }
 
+.wind_time{
+	z-index:1;
+	position:absolute;
+	bottom:35px;
+	right:247px;
+}
+.wind_last_updated{
+	z-index:1;
+	position:absolute;
+	bottom:20px;
+	right:55px;
+}
+
+.time_rect{
+	z-index:1;
+	position:absolute;
+	bottom:5px;
+	right:50px;
+}
+
 .ColorScalePicture{
 	z-index:1;
 	position:absolute;

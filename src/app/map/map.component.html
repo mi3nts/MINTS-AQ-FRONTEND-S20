@@ -22,6 +22,11 @@
     <button mat-mini-fab aria-label="question-mark" class="ColorScaleButton" (click)="OpenColorScaleModal()">
         <img src="https://img.icons8.com/material/24/000000/question-mark--v1.png">
       </button>
+    <svg class="time_rect" width="470" height="60">
+      <rect width="565" height="50" style="fill:rgba(231, 233, 233, 0.356);" />
+    </svg>
+    <b class="wind_time">{{data_time}}</b>
+    <b class="wind_last_updated">{{updated_time}}</b>
     <app-side-bar></app-side-bar>
     
     <div class="loading" [ng2-loading]="showSpinner"></div>

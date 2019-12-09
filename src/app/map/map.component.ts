@@ -16,7 +16,8 @@ export class MapComponent implements OnInit{
   constructor(private sensorDataService: SensorDataService, private sideBarService: SideBarService){
   }
 
-  
+  data_time;
+  updated_time;
   wind_json = require('./wind-gbr.json');
 
   //holds current sensor data
@@ -227,6 +228,11 @@ export class MapComponent implements OnInit{
       data => {
         this.wind_overlay = this.calculateWindOverlay(data);
         this.refreshLayersControl();
+        let date_time = new Date() 
+        this.data_time = "Wind Data time: " + data["0"].header.refTime; 
+        this.data_time=this.data_time.replace(/T|\:\d\dZ/g,' ')
+        this.data_time = this.data_time.substring(0, this.data_time.length-5);
+        this.updated_time = "Wind Updated Last: " + date_time.toTimeString();
         setTimeout(() => {
           this.showSpinner = false;
         }, 3000);
