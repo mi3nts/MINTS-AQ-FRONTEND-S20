@@ -18,12 +18,19 @@
     [leafletLayersControl]="layersControl" 
     markers="markers">
     </div>
+    <svg class="pic_rect" width="470" height="80">   
+        <rect width="565" height="300" style="fill:rgba(68, 68, 68, 0.856);" />
+  
+    </svg>
+        <!-- original value (231, 233, 233, 0.99) -->
+
     <img src="/assets/colorscale.png" alt="color scale" height="69.3" width="408.45" class="ColorScalePicture">
     <button mat-mini-fab aria-label="question-mark" class="ColorScaleButton" (click)="OpenColorScaleModal()">
         <img src="https://img.icons8.com/material/24/000000/question-mark--v1.png">
       </button>
     <svg class="time_rect" width="470" height="60">
-      <rect width="565" height="50" style="fill:rgba(231, 233, 233, 0.356);" />
+        <!-- original value (231, 233, 233, 0.99) -->
+      <rect width="565" height="50" style="fill:rgba(68, 68, 68, 0.692);" />
     </svg>
     <b class="wind_time">{{data_time}}</b>
     <b class="wind_last_updated">{{updated_time}}</b>

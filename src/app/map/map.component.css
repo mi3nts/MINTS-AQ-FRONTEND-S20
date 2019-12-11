@@ -24,21 +24,33 @@
 	z-index:1;
 	position:absolute;
 	bottom:35px;
-	right:247px;
+    right:247px;
+    color:#ffd740;
 }
 .wind_last_updated{
 	z-index:1;
 	position:absolute;
 	bottom:20px;
-	right:55px;
+    right:55px;
+    color:#ffd740;
 }
 
 .time_rect{
 	z-index:1;
 	position:absolute;
-	bottom:5px;
-	right:50px;
+	bottom:6px;
+    right:50px;
+    border-radius:4px;
 }
+
+.pic_rect{
+	z-index:1;
+	position:absolute;
+	bottom:5px;
+	left:10px;
+    border-radius:4px;
+}
+
 
 .ColorScalePicture{
 	z-index:1;
@@ -50,8 +62,8 @@
 .ColorScaleButton{
 	z-index:1;
 	position:absolute;
-	bottom:15px;
-	left:420px;
+	bottom:25px;
+	left:425px;
 }
 
 .ColorScaleModal{
