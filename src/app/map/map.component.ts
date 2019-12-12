@@ -224,7 +224,7 @@ export class MapComponent implements OnInit{
   }
 
   refreshWindOverlayData(){
-    this.sensorDataService.getWindData("http://imd.utdallas.edu:3000/data/latest").subscribe(
+    this.sensorDataService.getWindData().subscribe(
       data => {
         this.wind_overlay = this.calculateWindOverlay(data);
         this.refreshLayersControl();
