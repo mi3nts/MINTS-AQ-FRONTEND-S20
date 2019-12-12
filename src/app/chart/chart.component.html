@@ -4,7 +4,7 @@
 <h2>Particulate Matter Pollution Graph</h2>
 <h5>Last Updated: {{LatestTimeStamp}} UTC</h5>
 <div style="display:block">
-  <canvas baseChart width="400px" height="425px"
+  <canvas baseChart width="400px" height="375px"
   [datasets]="PMchartData"
   [labels]="chartLabels5Minutes"
   [options]="PMlineChartOptions"
@@ -14,6 +14,10 @@
   [plugins]="lineChartPlugins"
   (chartHover)="chartHovered($event)"
   (chartClick)="chartClicked($event)"></canvas>
+<p style="text-align:center;">
+  This chart displays yesterday's particulate matter values over a 24 hour period.<br>
+  Scroll and Drag on the Chart to Pan and Zoom 
+</p>
 
 
 <!-- <br>

@@ -22,7 +22,7 @@ export class ChartComponent implements OnInit {
       xAxes: [{
         scaleLabel:{
           display: true,
-          labelString:'24 Hour Period' 
+          labelString:'24 Hour Period In 5 Minute Intervals' 
         },
       }],
       yAxes: [
