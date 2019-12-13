@@ -23,3 +23,6 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Wind Map
+The wind map utilizes this plugin 'https://github.com/0nza1101/ionic3-leaflet-velocity/tree/master/src'. Which is primarily based off of this plugin'https://github.com/danwild/leaflet-velocity'. The one we use is just easily typescript compatible. 
