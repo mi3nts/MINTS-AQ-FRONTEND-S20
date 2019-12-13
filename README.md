@@ -39,7 +39,7 @@ https://www.npmjs.com/package/chartjs-plugin-zoom
 
 Wind Overlay for Angular 2+
 
-https://github.com/0nza1101/ionic3-leaflet-velocity/tree/master/src'. Which is a TypeScript fork based off of this plugin'https://github.com/danwild/leaflet-velocity'.
+https://github.com/0nza1101/ionic3-leaflet-velocity/tree/master/src. Which is a TypeScript fork based off of this plugin: https://github.com/danwild/leaflet-velocity.
 
 Angular Material
 
