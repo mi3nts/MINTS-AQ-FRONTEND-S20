@@ -24,7 +24,7 @@
 	z-index:1;
 	position:absolute;
 	bottom:35px;
-    right:247px;
+    right:82px;
     color:#ffd740;
 }
 .wind_last_updated{
@@ -39,7 +39,7 @@
 	z-index:1;
 	position:absolute;
 	bottom:6px;
-    right:50px;
+    right:0px;
     border-radius:4px;
 }
 

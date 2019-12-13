@@ -232,7 +232,9 @@ export class MapComponent implements OnInit{
         this.data_time = "Wind Data time: " + data["0"].recorded_time; 
         this.data_time=this.data_time.replace(/T|\:\d\dZ/g,' ')
         this.data_time = this.data_time.substring(0, this.data_time.length-5);
-        this.updated_time = "Wind Updated Last: " + date_time.toTimeString();
+        this.updated_time = "Wind Updated Last: " + data["0"].header.refTime;
+        this.updated_time=this.updated_time.replace(/T|\:\d\dZ/g,' ')
+        this.updated_time = this.updated_time.substring(0, this.updated_time.length-5);
         setTimeout(() => {
           this.showSpinner = false;
         }, 3000);
