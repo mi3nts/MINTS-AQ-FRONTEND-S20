@@ -229,7 +229,7 @@ export class MapComponent implements OnInit{
         this.wind_overlay = this.calculateWindOverlay(data);
         this.refreshLayersControl();
         let date_time = new Date() 
-        this.data_time = "Wind Data time: " + data["0"].header.refTime; 
+        this.data_time = "Wind Data time: " + data["0"].recorded_time; 
         this.data_time=this.data_time.replace(/T|\:\d\dZ/g,' ')
         this.data_time = this.data_time.substring(0, this.data_time.length-5);
         this.updated_time = "Wind Updated Last: " + date_time.toTimeString();
