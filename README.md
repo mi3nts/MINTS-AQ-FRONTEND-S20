@@ -26,16 +26,21 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Packages and Libraries
 Leaflet for Angular 2+
+
 https://github.com/Asymmetrik/ngx-leaflet
 
 ChartJS for Angular 2+
+
 https://valor-software.com/ng2-charts/
 
 ChartJS plugin for Zooming and Panning the Chart
+
 https://www.npmjs.com/package/chartjs-plugin-zoom
 
 Wind Overlay for Angular 2+
+
 https://github.com/0nza1101/ionic3-leaflet-velocity/tree/master/src'. Which is a TypeScript fork based off of this plugin'https://github.com/danwild/leaflet-velocity'.
 
 Angular Material
+
 https://material.angular.io/
