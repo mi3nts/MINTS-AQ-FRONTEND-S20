@@ -33,7 +33,7 @@ export class ChartComponent implements OnInit {
           },
           id: 'y-axis-0',
           position: 'left',
-          ticks:{min:0, max:120}
+          ticks:{min:0, max:60}
         }
       ]
     },
@@ -306,17 +306,18 @@ export class ChartComponent implements OnInit {
     let PM4data: Number[] = [];
     let PM10data: Number[] = [];
     let TimeData: Date[] = [];
-    let timeTicks: any[] = [];   
+    let timeTicks: any[] = [];    
+    // console.log(HistSensorData);
 
     //PARSE JSON TO GET VALUES FROM PM Data
     for(let i=0; i < HistSensorData.entries.length; i++ )
     {
       // console.log((HistSensorData.entries[i].result));
       if(typeof HistSensorData.entries[i].result[0] !== "undefined"){
-        PM2_5data.push(parseFloat(HistSensorData.entries[i].result[0].PM2_5));
-        PM1data.push(parseFloat(HistSensorData.entries[i].result[0].PM1));
-        PM4data.push(parseFloat(HistSensorData.entries[i].result[0].PM4));
-        PM10data.push(parseFloat(HistSensorData.entries[i].result[0].PM10));
+        PM2_5data.push(parseFloat(HistSensorData.entries[i].result[0]["Average PM2_5"]));
+        PM1data.push(parseFloat(HistSensorData.entries[i].result[0]["Average PM1"]));
+        PM4data.push(parseFloat(HistSensorData.entries[i].result[0]["Average PM4"]));
+        PM10data.push(parseFloat(HistSensorData.entries[i].result[0]["Average PM10"]));
       }
       // TimeData.push(new Date(this.HistoricalSensorData[i]["dateTime"]));
       // timeTicks.push(TimeData[i].toLocaleString());

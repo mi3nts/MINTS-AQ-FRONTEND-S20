@@ -138,19 +138,19 @@ export class MapComponent implements OnInit{
   addMarker(sData, sensorID){
     //String that gives Real Time information about a Sensor. This is used in the popup modal for the marker
     let PopupString = "<div style='font-size:14px'><div style='text-align:center; font-weight:bold'>" + "Current Sensor Data </div><br>";
-    if(!isNaN(parseFloat(sData.PM1)))
+    if(!isNaN(parseFloat(sData.PM1)) && parseFloat(sData.PM1) !== 0)
       PopupString += "<li>PM1: " + parseFloat(sData.PM1).toFixed(2) + " Micrograms Per Cubic Meter</li><br>";
-    if(!isNaN(parseFloat(sData.PM2_5)))
+    if(!isNaN(parseFloat(sData.PM2_5)) && parseFloat(sData.PM2_5) !== 0)
       PopupString += "<li>PM2.5: " + parseFloat(sData.PM2_5).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
-    if(!isNaN(parseFloat(sData.PM4)))
+    if(!isNaN(parseFloat(sData.PM4)) && parseFloat(sData.PM4) !== 0)
       PopupString += "<li>PM4: " + parseFloat(sData.PM4).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
-    if(!isNaN(parseFloat(sData.PM10)))    
+    if(!isNaN(parseFloat(sData.PM10))&& parseFloat(sData.PM10) !== 0)    
       PopupString += "<li>PM10: " + parseFloat(sData.PM10).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
-    if(!isNaN(parseFloat(sData.Temperature)))
+    if(!isNaN(parseFloat(sData.Temperature))&& parseFloat(sData.Temperature) !== 0)
       PopupString += "<li>Temperature: " + parseFloat(sData.Temperature).toFixed(2) + " Celcius</li><br>" ;
-    if(!isNaN(parseFloat(sData.Humidity)))
+    if(!isNaN(parseFloat(sData.Humidity))&& parseFloat(sData.Humidity) !== 0)
       PopupString += "<li>Humidity: " + parseFloat(sData.Humidity).toFixed(2) + "%</li><br>" ;
-    if(!isNaN(parseFloat(sData.DewPoint)))
+    if(!isNaN(parseFloat(sData.DewPoint))&& parseFloat(sData.DewPoint) !== 0)
       PopupString += "<li>DewPoint: " + parseFloat(sData.DewPoint).toFixed(2) + "%</li></div><br>" 
     if(!isNaN(parseFloat(sData.dateTime)))
       PopupString += "<div style='text-align:right; font-size: 11px'>Last Updated: " + sData.dateTime + " UTC</div>";
