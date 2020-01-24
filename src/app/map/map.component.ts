@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { latLng,  tileLayer, marker, icon, polyline, Map, Layer, circle, circleMarker, LeafletEventHandlerFn, Control, LayerGroup} from 'leaflet';
+import 'beautifymarker';
 import { SensorDataService } from '../sensor-data.service';
 import {SideBarService} from '../side-bar.service';
 import 'leaflet-velocity-ts';
@@ -48,6 +49,17 @@ export class MapComponent implements OnInit{
     }
   );
 
+  //WMS Radar Layer
+  nexrad:any;
+  RadarLayer = L.tileLayer.wms(
+    "http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi", {
+      layers: 'nexrad-n0r',
+      format: 'image/png',
+      transparent: true,
+      attribution: "Weather data &copy; 2015 IEM Nexrad"
+    }
+  );
+
 
   wind_overlay: any;
   layerGrp: LayerGroup;
@@ -62,6 +74,7 @@ export class MapComponent implements OnInit{
       },
       overlays:{
           "Wind Overlay": this.wind_overlay,
+          "Radar": this.RadarLayer
       }
     };
   }
@@ -161,13 +174,23 @@ export class MapComponent implements OnInit{
     // console.log(outlineColor);
     // console.log(fillColor);
 
-    //create the marker
-    let newMarker = circleMarker([parseFloat(sData.Latitude), parseFloat(sData.Longitude)], { 
-      radius: 10,
-      color: outlineColor,
-      fillColor: fillColor,
-      fillOpacity: 1
+    let beautifyOptions = {
+      icon: 'leaf',
+      iconShape: 'circle',
+      borderColor: outlineColor,
+      textColor: fillColor,
+      backgroundColor: 'transparent'
+    };
+    let beautyMark = L.marker([parseFloat(sData.Latitude), parseFloat(sData.Longitude)], {
+      icon: L.BeautifyIcon.icon(beautifyOptions)
     })
+    //create the marker
+    // let newMarker = circleMarker([parseFloat(sData.Latitude), parseFloat(sData.Longitude)], { 
+    //   radius: 10,
+    //   color: outlineColor,
+    //   fillColor: fillColor,
+    //   fillOpacity: 1
+    // })
         //handles click events for single clicks
         // .on("click", () => {
         //   this.ClickTimer = setTimeout(()=>{
@@ -181,7 +204,7 @@ export class MapComponent implements OnInit{
     .on("dblclick", () => {
       this.doDoubleClickAction(sensorID);
     }).bindPopup(PopupString).openPopup();
-    this.markers.push(newMarker);
+    this.markers.push(beautyMark);
   }
 
   //OPENS SIDEBAR 
