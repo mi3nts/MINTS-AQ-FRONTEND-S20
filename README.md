@@ -44,3 +44,11 @@ https://github.com/0nza1101/ionic3-leaflet-velocity/tree/master/src. Which is a 
 Angular Material
 
 https://material.angular.io/
+
+BeautifyMarker
+
+https://github.com/marslan390/BeautifyMarker
+
+US Radar Overlay Web Service
+
+http://mesonet.agron.iastate.edu/docs/nexrad_composites/
