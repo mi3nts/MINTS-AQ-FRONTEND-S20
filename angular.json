@@ -31,9 +31,14 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css",
-              "./node_modules/leaflet/dist/leaflet.css"
+              "./node_modules/leaflet/dist/leaflet.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/beautifymarker/leaflet-beautify-marker-icon.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/beautifymarker/leaflet-beautify-marker-icon.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -82,10 +87,14 @@
             "karmaConfig": "src/karma.conf.js",
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles.css"
+              "src/styles.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/beautifymarker/leaflet-beautify-marker-icon.css"
             ],
             "scripts": [
-              "../node_modules/chart.js/dist/Chart.min.js"
+              "../node_modules/chart.js/dist/Chart.min.js",
+              "./node_modules/beautifymarker/leaflet-beautify-marker-icon.js"
             ],
             "assets": [
               "src/favicon.ico",
