@@ -1,71 +1,72 @@
 
 <!-- MAIN HEADER BAR CODE -->
 <mat-toolbar style="height:7%">
-    <!-- <img src="../assets/mint_leaf.png" class="mint_leaf">-->
-    <span class="font-size:10px">мιnтѕ AQViz
-    <button mat-button (click)="OpenAboutModal()">About</button>
-    <button mat-button (click)="OpenPMModal()" >What Is Particulate Matter?</button>
-    <button mat-button color="primary" (click)="OpenHowToModal()" >How To Use</button></span> 
-    <span class="fill-remaining-space"></span>
-    <!-- <span><button mat-icon-button color="primary" aria-label="Settings" style="float:right">
-      <mat-icon>settings</mat-icon>
-    </button></span> -->
+  <!-- <img src="../assets/mint_leaf.png" class="mint_leaf">-->
+  <span class="font-size:10px">мιnтѕ AQViz
+  <button mat-button (click)="OpenAboutModal()">About</button>
+  <button mat-button (click)="OpenPMModal()" >What Is Particulate Matter?</button>
+  <button mat-button color="primary" (click)="OpenHowToModal()" >How To Use</button></span> 
+  <span class="fill-remaining-space"></span>
+  <!-- <span><button mat-icon-button color="primary" aria-label="Settings" style="float:right">
+    <mat-icon>settings</mat-icon>
+  </button></span> -->
 </mat-toolbar>
 
 <!-- HEADER MODALS -->
 
 <div class="AboutModal" id="AboutInfo">
-  <button class="SideBarButton" id="CloseAboutButton" (click)="CloseModal($event)">✖</button>
-  <div class="InfoModalContents">
-    <h1 style="text-align:center">About</h1>
-    <hr style="width:150px;display:block;">
-      <p>
-          Under the working title of “<b>SharedAirDFW</b>” over 100 new custom-built air quality monitors 
-          are being distributed throughout the DFW region in the next 12 months that will be able to 
-          give residents real time information about the air they breathe for the first time. When it’s 
-          up and running, <b>it’ll be the first network of its kind in Texas and one of the largest in the U.S.</b><br><br>
+<button class="SideBarButton" id="CloseAboutButton" (click)="CloseModal($event)">✖</button>
+<div class="InfoModalContents">
+  <h1 style="text-align:center">About</h1>
+  <hr style="width:150px;display:block;">
+    <p>
+        Under the working title of “<b>SharedAirDFW</b>” over 100 new custom-built air quality monitors 
+        are being distributed throughout the DFW region in the next 12 months that will be able to 
+        give residents real time information about the air they breathe for the first time. When it’s 
+        up and running, <b>it’ll be the first network of its kind in Texas and one of the largest in the U.S.</b><br><br>
 
-          Based out of the <b>University of Texas at Dallas</b> laboratories and fueled by its graduate students, 
-          as well as Downwinders’ grant money, these monitors will offer real time information through a 
-          easily accessible app.<br><br>
+        Based out of the <b>University of Texas at Dallas</b> laboratories and built and calibrated by its 
+        graduate and undergraduate students, and supported by grants from the NSF, Earth Day Texas, the US Army,
+        Downwinders at Risk, the City of Plano, TX, and the US EPA. These monitors will offer real time information
+        every few seconds through a <b>easily accessible app.</b> In addition, all data is made available in <b>real-time.</b><br><br>
 
-          Right now a handful of official EPA monitors provide air quality readings up to one or two hours 
-          behind real time conditions. <b>SharedAirDFW will increase the number of calibrated air quality monitors 
-          in DFW by a factor of four while giving readings updated every few seconds.</b><br><br>
+        Right now a handful of official EPA regulatory grade monitors provide hourly average air quality information with a
+        latency of a few hours behind real time conditions. <b>SharedAirDFW will increase the number of calibrated air quality
+        monitors in DFW by a factor of about forty while giving readings updated every few seconds.</b><br><br>
 
-          Almost half of the new monitors are going to front line communities in the DFW area: <b>33 monitors ies
-          purchased by Downwinders are going to Joppa, West Dallas, and Midlothian, while another 11 purchased 
-          by Paul Quinn College are slated for the Southern Dallas neighborhoods surrounding its campus.</b>
-      </p>
-  </div>
+        Some of the first monitor deployments will be across the campus of UT Dallas in Joppa (South Dallas), West Dallas, and
+        Midlothian, around Paul Quinn College for the Southern Dallas neighborhoods surrounding its campus, and across the City
+        of Plano.
+    </p>
+</div>
 </div>
 
 <div class="HowToModal" id="HowToInfo">
-  <button class="SideBarButton" id="CloseHowToButton" (click)="CloseModal($event)">✖</button>
-  <div  class="InfoModalContents">
-    <h1 style="text-align:center">Instructions</h1>
-    <hr style="width:250px;display:block;">
-    <ul>
-      <li>Single Click a Map Marker to view the Real Time Sensor Information</li><br>
-      <li>Double Click a Map Marker to view the Historical Time Sensor Information</li><br>
-      <li>Use The Top Right Button to change maps and enable the wind overlay</li><br>
-    </ul>
-    <!-- <p style="color: red;text-align:center">When viewing historical time sensor information, close the sidebar before selecting a new sensor.</p> -->
-  </div>
+<button class="SideBarButton" id="CloseHowToButton" (click)="CloseModal($event)">✖</button>
+<div  class="InfoModalContents">
+  <h1 style="text-align:center">Instructions</h1>
+  <hr style="width:250px;display:block;">
+  <ul>
+    <li>Single Click a Map Marker to view the Real Time Sensor Information</li><br>
+    <li>Double Click a Map Marker to view the Historical Time Sensor Information</li><br>
+    <li>Use The Top Right Button to change maps and enable the wind overlay</li><br>
+  </ul>
+  <!-- <p style="color: red;text-align:center">When viewing historical time sensor information, close the sidebar before selecting a new sensor.</p> -->
+</div>
 </div>
 
 <div class="HowToModal" id="PMInfo">
-  <button class="SideBarButton" id="CloseHowToButton" (click)="CloseModal($event)">✖</button>
-  <div  class="InfoModalContents">
-    <h1 style="text-align:center">What is Particulate Matter?</h1>
-    <hr style="width:450px;display:block;">
-    <p>Particulate matter are microscopic solid or liquid matter suspended in the air. 
-       They have impacts on climate and precipitation that adversely affect human health, in addition to direct inhalation. 
-       Particulate matter smaller than about 10 micrometers, can settle in the bronchi and lungs and cause health problems.
-       Fine particulate matter (PM2.5), tend to penetrate into the gas exchange regions of the lung, 
-       and very small particles may pass through the lungs to affect other organs.   
-    </p>
-    <p style="text-align:right">Source: <a href="https://en.wikipedia.org/wiki/Particulates#Health_effects">Wikipedia</a></p>
-    <!-- <p style="color: red;text-align:center">When viewing historical time sensor information, close the sidebar before selecting a new sensor.</p> -->
-  </div>
+<button class="SideBarButton" id="CloseHowToButton" (click)="CloseModal($event)">✖</button>
+<div  class="InfoModalContents">
+  <h1 style="text-align:center">What is Particulate Matter?</h1>
+  <hr style="width:450px;display:block;">
+  <p>Particulate matter are microscopic solid or liquid matter suspended in the air. 
+     They have impacts on climate and precipitation that adversely affect human health, in addition to direct inhalation. 
+     Particulate matter smaller than about 10 micrometers, can settle in the bronchi and lungs and cause health problems.
+     Fine particulate matter (PM2.5), tend to penetrate into the gas exchange regions of the lung, 
+     and very small particles may pass through the lungs to affect other organs.   
+  </p>
+  <p style="text-align:right">Source: <a href="https://en.wikipedia.org/wiki/Particulates#Health_effects">Wikipedia</a></p>
+  <!-- <p style="color: red;text-align:center">When viewing historical time sensor information, close the sidebar before selecting a new sensor.</p> -->
+</div>
 </div>
