@@ -38,17 +38,17 @@ export class SensorDataService {
   }
 
   getSensorIDs(){
-    let URL: string = "http://localhost:3000/sensors";
+    let URL: string = "http://mints-temp.ddns.net:3000/sensors";
     return this.http.get(URL);
   }
 
   getRealTimeSensorData(sensorID:string){
-    let URL: string = "http://localhost:3000/latestData/?sensor=" + sensorID;
+    let URL: string = "http://mints-temp.ddns.net:3000/latestData/?sensor=" + sensorID;
     return this.http.get(URL);
   }
 
   getHistoricalSensorData(sensorID:string){
-    let URL: string = "http://localhost:3000/aggregationData/?sensor=" + sensorID;
+    let URL: string = "http://mints-temp.ddns.net:3000/aggregationData/?sensor=" + sensorID;
     return this.http.get(URL);
   }
 
