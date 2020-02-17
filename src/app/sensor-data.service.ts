@@ -45,7 +45,7 @@ export class SensorDataService {
     let URL: string = "http://mints-temp.ddns.net:3000/sensors";
     return this.http.get(URL);
   }
-
+// new comment
   getRealTimeSensorData(sensorID:string){
     let URL: string = "http://mints-temp.ddns.net:3000/latestData/?sensor=" + sensorID;
     return this.http.get(URL);
