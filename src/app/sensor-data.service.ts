@@ -38,6 +38,8 @@ export class SensorDataService {
   }
 
   //Getting data temporarily from Giakhanh's server
+
+  //random changes
   //blah blah
   getSensorIDs(){
     let URL: string = "http://mints-temp.ddns.net:3000/sensors";
