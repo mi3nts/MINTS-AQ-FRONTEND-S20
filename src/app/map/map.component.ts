@@ -217,11 +217,12 @@ export class MapComponent implements OnInit{
 
   //function for double click action
   doDoubleClickAction(sensorID){
-    this.OpenSideBar();
+    //this.OpenSideBar();
     // console.log(sensorID);
     //PASS SENSORID TO CHART BY USING SIDEBAR SERVICE
-    this.sideBarService.setSensorID(sensorID);
-
+    //this.sideBarService.setSensorID(sensorID);
+	
+	window.open('http://localhost:3000/d/sensorID/at-location-sensorid?orgId=1&refresh=5s', "http://localhost:3000/d/sensorID/at-location-sensorid?orgId=1&refresh=5s");
   }
 
   //function for single click action
