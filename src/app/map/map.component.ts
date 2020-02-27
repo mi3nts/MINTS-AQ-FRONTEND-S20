@@ -302,9 +302,9 @@ export class MapComponent implements OnInit{
   }
 
     //function for getting the outline color of circle markers
-setColor(AQI:number):string{ 
-let MicrogramsPerCubicMeter; 
-AQI = MicrogramsPerCubicMeter;
+    
+setColor(AQI:number):string{            //AQI stands for Air Quality Index
+
            if(AQI >= 0   && AQI <=5)   return "#ffff66";
       else if(AQI >  5   && AQI <=10)  return "#ff6600";
       else if(AQI > 10   && AQI <=15)  return "#cc0000";
@@ -314,8 +314,7 @@ AQI = MicrogramsPerCubicMeter;
   
     //function for getting the fill color of circle markers
 setFillColor(AQI:number):string{
-let MicrogramsPerCubicMeter; 
-AQI =MicrogramsPerCubicMeter;
+
           if(AQI >= 0   &&  AQI  <=5)   return "#ffff66";
      else if(AQI >  5   &&  AQI  <=10)  return "#ff6600";
      else if(AQI > 10   &&  AQI  <=15)  return "#cc0000";
