@@ -302,20 +302,24 @@ export class MapComponent implements OnInit{
   }
 
     //function for getting the outline color of circle markers
-setColor(ppb:number):string{
-           if(ppb >= 0  && ppb <=25)  return "#ffff66";
-      else if(ppb > 25  && ppb <=50)  return "#ff6600";
-      else if(ppb > 50  && ppb <=100) return "#cc0000";
-      else if(ppb > 100 && ppb <=150) return "#990099";
-      else if(ppb > 150) return "#732626";
+setColor(AQI:number):string{ 
+let MicrogramsPerCubicMeter; 
+AQI = MicrogramsPerCubicMeter;
+           if(AQI >= 0   && AQI <=5)   return "#ffff66";
+      else if(AQI >  5   && AQI <=10)  return "#ff6600";
+      else if(AQI > 10   && AQI <=15)  return "#cc0000";
+      else if(AQI > 15   && AQI <=20)  return "#990099";
+      else if(AQI > 20) return "#732626";
     }
   
     //function for getting the fill color of circle markers
-setFillColor(ppb:number):string{
-          if(ppb >= 0  &&  ppb  <=25)  return "#ffff66";
-     else if(ppb > 25  &&  ppb  <=50)  return "#ff6600";
-     else if(ppb > 50  &&  ppb  <=100) return "#cc0000";
-     else if(ppb > 100 &&  ppb  <=150) return "#990099";
-     else if(ppb > 150) return "#732626";
+setFillColor(AQI:number):string{
+let MicrogramsPerCubicMeter; 
+AQI =MicrogramsPerCubicMeter;
+          if(AQI >= 0   &&  AQI  <=5)   return "#ffff66";
+     else if(AQI >  5   &&  AQI  <=10)  return "#ff6600";
+     else if(AQI > 10   &&  AQI  <=15)  return "#cc0000";
+     else if(AQI > 15   &&  AQI  <=20)  return "#990099";
+     else if(AQI > 20) return "#732626";
     }
 }
