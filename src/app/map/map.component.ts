@@ -107,14 +107,16 @@ export class MapComponent implements OnInit{
     //gets a list of sensor IDs to begin getting real time data
     this.sensorDataService.getSensorIDs().subscribe((data1: any)=>{
       this.sensorIDs = data1;
-
+      console.log(data1);
       //loop through each sensor in the list
-      for(let i = 0; i < this.sensorIDs.sensors.length; i++)
+      for(let i = 0; i < this.sensorIDs.length; i++)
       {
         //get real time sensor data and add a marker for each sensor in list
-        this.sensorDataService.getRealTimeSensorData(this.sensorIDs.sensors[i]).subscribe((data2: any)=>{
-          this.sensors.push(data2);
-          this.addMarker(data2, this.sensorIDs.sensors[i]);
+        this.sensorDataService.getRealTimeSensorData(this.sensorIDs[i]).subscribe((data2: any)=>{
+          //this.sensors.push(data2);
+          console.log(data2)
+          console.log(this.sensorIDs[i]);
+          this.addMarker(data2[0], this.sensorIDs[i]);
         })  
       }
    });
@@ -151,26 +153,26 @@ export class MapComponent implements OnInit{
   addMarker(sData, sensorID){
     //String that gives Real Time information about a Sensor. This is used in the popup modal for the marker
     let PopupString = "<div style='font-size:14px'><div style='text-align:center; font-weight:bold'>" + "Current Sensor Data </div><br>";
-    if(!isNaN(parseFloat(sData.PM1)) && parseFloat(sData.PM1) !== 0)
-      PopupString += "<li>PM1: " + parseFloat(sData.PM1).toFixed(2) + " Micrograms Per Cubic Meter</li><br>";
-    if(!isNaN(parseFloat(sData.PM2_5)) && parseFloat(sData.PM2_5) !== 0)
-      PopupString += "<li>PM2.5: " + parseFloat(sData.PM2_5).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
-    if(!isNaN(parseFloat(sData.PM4)) && parseFloat(sData.PM4) !== 0)
-      PopupString += "<li>PM4: " + parseFloat(sData.PM4).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
-    if(!isNaN(parseFloat(sData.PM10))&& parseFloat(sData.PM10) !== 0)    
-      PopupString += "<li>PM10: " + parseFloat(sData.PM10).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
-    if(!isNaN(parseFloat(sData.Temperature))&& parseFloat(sData.Temperature) !== 0)
-      PopupString += "<li>Temperature: " + parseFloat(sData.Temperature).toFixed(2) + " Celcius</li><br>" ;
-    if(!isNaN(parseFloat(sData.Humidity))&& parseFloat(sData.Humidity) !== 0)
-      PopupString += "<li>Humidity: " + parseFloat(sData.Humidity).toFixed(2) + "%</li><br>" ;
-    if(!isNaN(parseFloat(sData.DewPoint))&& parseFloat(sData.DewPoint) !== 0)
-      PopupString += "<li>DewPoint: " + parseFloat(sData.DewPoint).toFixed(2) + "%</li></div><br>" 
-    if(!isNaN(parseFloat(sData.dateTime)))
-      PopupString += "<div style='text-align:right; font-size: 11px'>Last Updated: " + sData.dateTime + " UTC</div>";
+    if(!isNaN(parseFloat(sData.pm1)) && parseFloat(sData.pm1) !== 0)
+      PopupString += "<li>PM1: " + parseFloat(sData.pm1).toFixed(2) + " Micrograms Per Cubic Meter</li><br>";
+    if(!isNaN(parseFloat(sData.pm2_5)) && parseFloat(sData.pm2_5) !== 0)
+      PopupString += "<li>PM2.5: " + parseFloat(sData.pm2_5).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
+    if(!isNaN(parseFloat(sData.pm4)) && parseFloat(sData.pm4) !== 0)
+      PopupString += "<li>PM4: " + parseFloat(sData.pm4).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
+    if(!isNaN(parseFloat(sData.pm10))&& parseFloat(sData.pm10) !== 0)    
+      PopupString += "<li>PM10: " + parseFloat(sData.pm10).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
+    if(!isNaN(parseFloat(sData.temperature))&& parseFloat(sData.temperature) !== 0)
+      PopupString += "<li>Temperature: " + parseFloat(sData.temperature).toFixed(2) + " Celcius</li><br>" ;
+    if(!isNaN(parseFloat(sData.humidity))&& parseFloat(sData.humidity) !== 0)
+      PopupString += "<li>Humidity: " + parseFloat(sData.humidity).toFixed(2) + "%</li><br>" ;
+    if(!isNaN(parseFloat(sData.dewpoint))&& parseFloat(sData.dewpoint) !== 0)
+      PopupString += "<li>DewPoint: " + parseFloat(sData.dewpoint).toFixed(2) + "%</li></div><br>" 
+    if(!isNaN(parseFloat(sData.timestamp)))
+      PopupString += "<div style='text-align:right; font-size: 11px'>Last Updated: " + sData.timestamp + " UTC</div>";
 
     //get colors based on PM 2.5 values
-    let outlineColor = this.setColor(parseFloat(sData.PM2_5));
-    let fillColor = this.setFillColor(parseFloat(sData.PM2_5));
+    let outlineColor = this.setColor(parseFloat(sData.pm2_5));
+    let fillColor = this.setFillColor(parseFloat(sData.pm2_5));
     // console.log(outlineColor);
     // console.log(fillColor);
 
@@ -181,7 +183,7 @@ export class MapComponent implements OnInit{
       textColor: fillColor,
       backgroundColor: 'transparent'
     };
-    let beautyMark = L.marker([parseFloat(sData.Latitude), parseFloat(sData.Longitude)], {
+    let beautyMark = L.marker([parseFloat(sData.latitude), parseFloat(sData.longitude)], {
       icon: L.BeautifyIcon.icon(beautifyOptions)
     })
     //create the marker
@@ -302,87 +304,23 @@ export class MapComponent implements OnInit{
   }
 
     //function for getting the outline color of circle markers
-  setColor(PM:number):string{
-      // console.log(PM);
-      if(PM >= 11.00)return "#ed0000";
-      else if(PM >= 8.00)return "#ed9200";
-      else if(PM >= 5.00)return "#fffb00";
-      else if(PM >= 3.00)return "#35b000";
-      else if(PM >= 0.00)return "#3d88ff";
+    
+setColor(AQI:number):string{            //AQI stands for Air Quality Index
+
+           if(AQI >= 0   && AQI <=5)   return "#ffff66";
+      else if(AQI >  5   && AQI <=10)  return "#ff6600";
+      else if(AQI > 10   && AQI <=15)  return "#cc0000";
+      else if(AQI > 15   && AQI <=20)  return "#990099";
+      else if(AQI > 20) return "#732626";
     }
   
     //function for getting the fill color of circle markers
-  setFillColor(PM:number):string{
-      // console.log(PM);
-  
-      if(PM >= 11.00){
-        if(PM >= 11.90)return "#ed0000";
-        else if(PM >= 11.80)return "#ff1919";
-        else if(PM >= 11.70)return "#ff2b2b";
-        else if(PM >= 11.60)return "#ff3838";
-        else if(PM >= 11.50)return "#ff4545";
-        else if(PM >= 11.40)return "#ff4d4d";
-        else if(PM >= 11.30)return "#ff6363";
-        else if(PM >= 11.20)return "#ff6b6b";
-        else if(PM >= 11.10)return "#ff8585";
-        else if(PM >= 11.00)return "#ff9696";
-      }
-  
-      else if(PM >= 8.00){      
-        if(PM >= 8.90)return "#ed9200";
-        else if(PM >= 8.80)return "#fca314";
-        else if(PM >= 8.70)return "#faad32";
-        else if(PM >= 8.60)return "#ffb43d";
-        else if(PM >= 8.50)return "#ffba4d";
-        else if(PM >= 8.40)return "#ffc261";
-        else if(PM >= 8.30)return "#ffc870";
-        else if(PM >= 8.20)return "#ffcf82";
-        else if(PM >= 8.10)return "#fcd28d";
-        else if(PM >= 8.00)return "#ffda9e";
-      }
-  
-      else if(PM >= 5.00){
-        if(PM >= 5.90)return "#fffb00";
-        else if(PM >= 5.80)return "#fffb19";
-        else if(PM >= 5.70)return "#fffb30";
-        else if(PM >= 5.60)return "#fffb3b";
-        else if(PM >= 5.50)return "#fffb4d";
-        else if(PM >= 5.40)return "#fffb57";
-        else if(PM >= 5.30)return "#fffb61";
-        else if(PM >= 5.20)return "#fffb69";
-        else if(PM >= 5.10)return "#fffc80";
-        else if(PM >= 5.00)return "#fffd96";
-      }
-  
-      else if(PM >= 3.00 ){
-        if(PM >= 3.90)return "#35b000";
-        else if(PM >= 3.80)return "#48bf15";
-        else if(PM >= 3.70)return "#52c91e";
-        else if(PM >= 3.60)return "#52c91e";
-        else if(PM >= 3.50)return "#69e334";
-        else if(PM >= 3.40)return "#6eeb38";
-        else if(PM >= 3.30)return "#79ed47";
-        else if(PM >= 3.20)return "#83f252";
-        else if(PM >= 3.10)return "#8eff5c";
-        else if(PM >= 3.00)return "#a5ff7d";
-      }
-  
-      else if(PM >= 0.00){
-        if(PM >= 2.90)return "#3d88ff";
-        else if(PM >= 2.70)return "#4a90ff";
-        else if(PM >= 2.50)return "#5c9bff";
-        else if(PM >= 2.30)return "#6ea6ff";
-        else if(PM >= 2.10)return "#4288ff";
-        else if(PM >= 1.90)return "#5292ff";
-        else if(PM >= 1.70)return "#5d98fc";
-        else if(PM >= 1.50)return "#6ea4ff";
-        else if(PM >= 1.30)return "#7aacff";
-        else if(PM >= 1.00)return "#96beff";
-        else if(PM >= 0.75)return "#a8c9ff";
-        else if(PM >= 0.50)return "#bad4ff";
-        else if(PM >= 0.25)return "#c9deff";
-        else if(PM >= 0.00)return "#dbe9ff";
-        
-      }
+setFillColor(AQI:number):string{
+
+          if(AQI >= 0   &&  AQI  <=5)   return "#ffff66";
+     else if(AQI >  5   &&  AQI  <=10)  return "#ff6600";
+     else if(AQI > 10   &&  AQI  <=15)  return "#cc0000";
+     else if(AQI > 15   &&  AQI  <=20)  return "#990099";
+     else if(AQI > 20) return "#732626";
     }
 }

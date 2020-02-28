@@ -18,19 +18,19 @@
     [leafletLayersControl]="layersControl" 
     markers="markers">
     </div>
-    <svg class="pic_rect" width="470" height="80">   
+    <svg class="pic_rect" width="430" height="80">   
         <rect width="565" height="300" style="fill:rgba(68, 68, 68, 0.856);" />
   
     </svg>
         <!-- original value (231, 233, 233, 0.99) -->
 
-    <img src="/assets/colorscale.png" alt="color scale" height="69.3" width="408.45" class="ColorScalePicture">
+    <img src="/assets/newcolorscale.png" alt="color scale" height="69.3" width="408.45" class="ColorScalePicture">
     <button mat-mini-fab aria-label="question-mark" class="ColorScaleButton" (click)="OpenColorScaleModal()">
         <img src="https://img.icons8.com/material/24/000000/question-mark--v1.png">
       </button>
     <svg class="time_rect" width="365" height="60">
         <!-- original value (231, 233, 233, 0.99) -->
-      <rect width="325" height="50" style="fill:rgba(68, 68, 68, 0.692);" />
+      <rect width="320" height="50" style="fill:rgba(68, 68, 68, 0.692);" />
     </svg>
     <b class="wind_time">{{data_time}}</b>
     <b class="wind_last_updated">{{updated_time}}</b>
@@ -44,11 +44,11 @@
 <div class="ColorScaleModal" id="CSScaleModal">
     <button class="SideBarButton" id="CloseHowToButton" (click)="CloseModal($event)">✖</button>
     <div  class="InfoModalContents">
-      <h1 style="text-align:center">Color Scale Information</h1>
-      <hr style="width:350px;display:block;">
-      <p>The color scale is based off the real time sensor values for PM2.5. 
-         Higher PM2.5 levels results in worse air quality.
-         The colors denote how much PM2.5 is currently in the air. </p>
+      <h2 style="text-align:center">Color Scale Information</h2>
+      <hr style="width:300px;display:block;">
+      <p>The color scale is based on the real time sensor values for PM 2.5. 
+         Higher PM 2.5 levels results in worse air quality.
+         The colors denote how much Micrograms Per Cubic Meter is currently in the air.</p>
       <!-- <p style="color: red;text-align:center">When viewing historical time sensor information, close the sidebar before selecting a new sensor.</p> -->
     </div>
   </div>
