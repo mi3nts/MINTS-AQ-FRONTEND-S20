@@ -107,14 +107,16 @@ export class MapComponent implements OnInit{
     //gets a list of sensor IDs to begin getting real time data
     this.sensorDataService.getSensorIDs().subscribe((data1: any)=>{
       this.sensorIDs = data1;
-
+      console.log(data1);
       //loop through each sensor in the list
-      for(let i = 0; i < this.sensorIDs.sensors.length; i++)
+      for(let i = 0; i < this.sensorIDs.length; i++)
       {
         //get real time sensor data and add a marker for each sensor in list
-        this.sensorDataService.getRealTimeSensorData(this.sensorIDs.sensors[i]).subscribe((data2: any)=>{
-          this.sensors.push(data2);
-          this.addMarker(data2, this.sensorIDs.sensors[i]);
+        this.sensorDataService.getRealTimeSensorData(this.sensorIDs[i]).subscribe((data2: any)=>{
+          //this.sensors.push(data2);
+          console.log(data2)
+          console.log(this.sensorIDs[i]);
+          this.addMarker(data2[0], this.sensorIDs[i]);
         })  
       }
    });
@@ -151,26 +153,26 @@ export class MapComponent implements OnInit{
   addMarker(sData, sensorID){
     //String that gives Real Time information about a Sensor. This is used in the popup modal for the marker
     let PopupString = "<div style='font-size:14px'><div style='text-align:center; font-weight:bold'>" + "Current Sensor Data </div><br>";
-    if(!isNaN(parseFloat(sData.PM1)) && parseFloat(sData.PM1) !== 0)
-      PopupString += "<li>PM1: " + parseFloat(sData.PM1).toFixed(2) + " Micrograms Per Cubic Meter</li><br>";
-    if(!isNaN(parseFloat(sData.PM2_5)) && parseFloat(sData.PM2_5) !== 0)
-      PopupString += "<li>PM2.5: " + parseFloat(sData.PM2_5).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
-    if(!isNaN(parseFloat(sData.PM4)) && parseFloat(sData.PM4) !== 0)
-      PopupString += "<li>PM4: " + parseFloat(sData.PM4).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
-    if(!isNaN(parseFloat(sData.PM10))&& parseFloat(sData.PM10) !== 0)    
-      PopupString += "<li>PM10: " + parseFloat(sData.PM10).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
-    if(!isNaN(parseFloat(sData.Temperature))&& parseFloat(sData.Temperature) !== 0)
-      PopupString += "<li>Temperature: " + parseFloat(sData.Temperature).toFixed(2) + " Celcius</li><br>" ;
-    if(!isNaN(parseFloat(sData.Humidity))&& parseFloat(sData.Humidity) !== 0)
-      PopupString += "<li>Humidity: " + parseFloat(sData.Humidity).toFixed(2) + "%</li><br>" ;
-    if(!isNaN(parseFloat(sData.DewPoint))&& parseFloat(sData.DewPoint) !== 0)
-      PopupString += "<li>DewPoint: " + parseFloat(sData.DewPoint).toFixed(2) + "%</li></div><br>" 
-    if(!isNaN(parseFloat(sData.dateTime)))
-      PopupString += "<div style='text-align:right; font-size: 11px'>Last Updated: " + sData.dateTime + " UTC</div>";
+    if(!isNaN(parseFloat(sData.pm1)) && parseFloat(sData.pm1) !== 0)
+      PopupString += "<li>PM1: " + parseFloat(sData.pm1).toFixed(2) + " Micrograms Per Cubic Meter</li><br>";
+    if(!isNaN(parseFloat(sData.pm2_5)) && parseFloat(sData.pm2_5) !== 0)
+      PopupString += "<li>PM2.5: " + parseFloat(sData.pm2_5).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
+    if(!isNaN(parseFloat(sData.pm4)) && parseFloat(sData.pm4) !== 0)
+      PopupString += "<li>PM4: " + parseFloat(sData.pm4).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
+    if(!isNaN(parseFloat(sData.pm10))&& parseFloat(sData.pm10) !== 0)    
+      PopupString += "<li>PM10: " + parseFloat(sData.pm10).toFixed(2) + " Micrograms Per Cubic Meter</li><br>" ;
+    if(!isNaN(parseFloat(sData.temperature))&& parseFloat(sData.temperature) !== 0)
+      PopupString += "<li>Temperature: " + parseFloat(sData.temperature).toFixed(2) + " Celcius</li><br>" ;
+    if(!isNaN(parseFloat(sData.humidity))&& parseFloat(sData.humidity) !== 0)
+      PopupString += "<li>Humidity: " + parseFloat(sData.humidity).toFixed(2) + "%</li><br>" ;
+    if(!isNaN(parseFloat(sData.dewpoint))&& parseFloat(sData.dewpoint) !== 0)
+      PopupString += "<li>DewPoint: " + parseFloat(sData.dewpoint).toFixed(2) + "%</li></div><br>" 
+    if(!isNaN(parseFloat(sData.timestamp)))
+      PopupString += "<div style='text-align:right; font-size: 11px'>Last Updated: " + sData.timestamp + " UTC</div>";
 
     //get colors based on PM 2.5 values
-    let outlineColor = this.setColor(parseFloat(sData.PM2_5));
-    let fillColor = this.setFillColor(parseFloat(sData.PM2_5));
+    let outlineColor = this.setColor(parseFloat(sData.pm2_5));
+    let fillColor = this.setFillColor(parseFloat(sData.pm2_5));
     // console.log(outlineColor);
     // console.log(fillColor);
 
@@ -181,7 +183,7 @@ export class MapComponent implements OnInit{
       textColor: fillColor,
       backgroundColor: 'transparent'
     };
-    let beautyMark = L.marker([parseFloat(sData.Latitude), parseFloat(sData.Longitude)], {
+    let beautyMark = L.marker([parseFloat(sData.latitude), parseFloat(sData.longitude)], {
       icon: L.BeautifyIcon.icon(beautifyOptions)
     })
     //create the marker

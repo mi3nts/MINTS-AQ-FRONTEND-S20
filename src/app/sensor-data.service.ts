@@ -38,14 +38,13 @@ export class SensorDataService {
   }
 
   //Getting data temporarily from Giakhanh's server
-  //blah blah
   getSensorIDs(){
-    let URL: string = "http://mints-temp.ddns.net:3000/sensors";
+    let URL: string = "http://imd.utdallas.edu:3010/sensor_id_list";
     return this.http.get(URL);
   }
-// new comment
+
   getRealTimeSensorData(sensorID:string){
-    let URL: string = "http://mints-temp.ddns.net:3000/latestData/?sensor=" + sensorID;
+    let URL: string = "http://imd.utdallas.edu:3010/latest/" + sensorID;
     return this.http.get(URL);
   }
 
