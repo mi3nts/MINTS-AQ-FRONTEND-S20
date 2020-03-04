@@ -38,12 +38,12 @@ export class SensorDataService {
   }
   
   getSensorIDs(){
-    let URL: string = "http://imd.utdallas.edu:3010/sensor_id_list";
+    let URL: string = "http://mintsdata.utdallas.edu:3000/sensor_id_list";
     return this.http.get(URL);
   }
 
   getRealTimeSensorData(sensorID:string){
-    let URL: string = "http://imd.utdallas.edu:3010/latest/" + sensorID;
+    let URL: string = "http://mintsdata.utdallas.edu:3000/latest/" + sensorID;
     return this.http.get(URL);
   }
 
@@ -67,7 +67,7 @@ export class SensorDataService {
   // }
   
   getWindData(){
-    let url: string = "http://mintsdata.utdallas.edu:3000/data/latest";
+    let url: string = "http://mintsdata.utdallas.edu:3000/wind_data/latest";
     return this.http.get(url);
   }
 }
